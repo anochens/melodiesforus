@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="./assets/js/jquery.js"></script>
+	 <script>
+	 $(document).ready(function() {
+		 $('.addToCart').click(function(e) {
+			 var song = $(this).closest("div").find("h6").text();
+			 $('#cart').html(song+": $0.99");
+		 });
+	 });
+
+	 </script>
+
+    <link href="./assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+		.span4 {
+			border-top: 1px solid #eee;
+			border-bottom: 1px solid #eee;
+			max-width:300px;
+			margin-left:-10px;
+		}
+		#bigGroup {
+			border: 3px solid black;
+			padding: 5px;
+		}
+		#cartSpan {
+			height: 150px;
+			max-width:170px;
+			padding: 10px;
+			border: 3px solid black;
+		}
+		#cartSongArea {
+			height: 100px;
+         max-width:170px;
+			padding: 10px; 
+		}
+    </style>
+    <link href="./assets/css/bootstrap.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="./assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="./assets/ico/apple-touch-icon-114-precomposed.png">
+	 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="./assets/ico/apple-touch-icon-72-precomposed.png">
+	 <link rel="apple-touch-icon-precomposed" href="./assets/ico/apple-touch-icon-57-precomposed.png">
+	 <link rel="shortcut icon" href="./assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">PSU Music</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+
+      <div style='margin-left:-10px;margin-top:-5px' class='row'>
+
+		<?php
+
+      $songstring = file_get_contents('songs/song_info.txt', true);
+		$song_artists = array();
+      foreach(explode("\n",$songstring) as $line) {
+			$split = explode(":", $line);
+			$genre = $split[0];
+         if(count($split)>1){
+				$song_artist = explode(" by ",trim($split[1]));
+				$song_artists[] = $song_artist;
+			}
+		}
+
+		?>
+
+      <div id='bigGroup' class='span13' style='margin-right:-10px'>
+
+        
+      <div class="row">
+		  
+		  <?php 
+
+		  for($i=1;$i<=6;$i++) { 
+			 if($i>1 && ($i-1)%2 == 0) {
+			 	echo "</div><div class='row'>";   
+			 }
+
+			  ?>
+		  
+		  
+		  <div class="span4" style='padding-bottom:10px;padding-left:5px;'>
+          <h3 style='margin-top:-5px;margin-bottom:-10px'><?php echo $song_artists[$i-1][0]; ?></h3>
+			 	<h4 style='margin-bottom:-30px'><i>by <?php echo $song_artists[$i-1][1]; ?></i></h4>
+				<h6 style='visibility:hidden'><?php echo implode(' by ',$song_artists[$i-1]); ?></h6>
+					<div>
+						<?php echo "<img style='float:left' src='./songs/song$i"."_cover.jpg' width='100' height='100' />";  ?>
+					</div>
+					
+					<object style='float:right' data="dewplayer-mini.swf" width="160" height="20" name="dewplayer" id="dewplayer" type="application/x-shockwave-flash">
+					
+					<param name="movie" value="dewplayer-mini.swf" />
+					<?php
+						echo "<param name='flashvars' value='mp3=songs/song".$i.".mp3' />";
+					?>
+					<param name="wmode" value="transparent" />
+					</object>
+					<br/>
+          <a class="btn addToCart" style='margin-top:20px;float:right' href="#">Add to cart ($0.99) &raquo;</a>
+        </div>
+		  
+		  <?php   
+
+		  }
+		  
+		  ?>
+		</div> <!--last song block -->
+      </div> <!-- big block of songs -->
+
+
+		<div id='rightSide' class='span3'> 
+			<div class='row'>
+				<div id='cartSpan' class='span3'>
+					<div class='row'>
+						<div class="span3" id='cartSongArea'>
+							<h3 style='margin-top:-20px;margin-left:-10px'>Cart:</h3>
+							<p id='cart'></p> <!-- This is where the song goes -->
+						</div>
+					</div>
+
+					<div class='row'>
+						<div class="span3" id='cartBtnArea'>
+							<a class="btn" href="#" onclick='doPurchase();'>Purchase</a>
+							<a class="btn" href="#" onclick="$('#cart').html('');">Clear cart</a>
+						</div>
+					</div>
+											
+				</div>
+			</div> <!-- cart row -->
+
+			<div class='row'>
+				<div class="span3" id='cartSecurityArea'>
+					Security indicators go here.
+				</div>
+			</div>    
+		</div>  <!-- right side -->
+
+		 <script>
+		 function doPurchase() {
+			 var cart = $('#cart').html();
+			 if(cart == '') {
+          	alert('You must add a song to your cart.');
+				return false;
+			 }
+			 return true;
+		 }
+
+		 </script>
+ 
+      <hr>
+      <footer>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./assets/js/bootstrap-transition.js"></script>
+    <script src="./assets/js/bootstrap-alert.js"></script>
+    <script src="./assets/js/bootstrap-modal.js"></script>
+    <script src="./assets/js/bootstrap-dropdown.js"></script>
+    <script src="./assets/js/bootstrap-scrollspy.js"></script>
+    <script src="./assets/js/bootstrap-tab.js"></script>
+    <script src="./assets/js/bootstrap-tooltip.js"></script>
+    <script src="./assets/js/bootstrap-popover.js"></script>
+    <script src="./assets/js/bootstrap-button.js"></script>
+    <script src="./assets/js/bootstrap-collapse.js"></script>
+    <script src="./assets/js/bootstrap-carousel.js"></script>
+    <script src="./assets/js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>
+

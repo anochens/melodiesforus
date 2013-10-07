@@ -1,0 +1,153 @@
+<p>
+<script type="text/javascript">// <![CDATA[
+function fix()
+{
+var u = document.URL;
+
+var pos1 = u.indexOf("mturk");
+pos1 = pos1+6;
+var pos2 = u.indexOf("&age");
+document.test.mturk.value = u.substring(pos1,pos2);
+
+
+pos1 = u.indexOf("age");
+pos1 = pos1+4;
+pos2 = u.indexOf("&country");
+document.test.age.value = u.substring(pos1,pos2);
+
+
+pos1 = u.indexOf("country");
+pos1 = pos1+8;
+pos2 = u.indexOf("&sng");
+document.test.country.value = u.substring(pos1,pos2);
+
+
+pos1 = u.indexOf("sng");
+pos1 = pos1+4;
+pos2 = u.indexOf("&tid");
+document.test.sng.value = u.substring(pos1,pos2);
+
+pos1 = u.indexOf("tid");
+pos1 = pos1+4;
+pos2 = u.indexOf("&email");
+document.test.tid.value = u.substring(pos1,pos2);
+
+
+pos1 = u.indexOf("email");
+pos1 = pos1+6;
+document.test.email.value = u.substring(pos1);
+
+};
+// ]]></script>
+</p>
+<p>{source}<br />&lt;?php <br />if ($_GET["email"]!=no) <br />{</p>
+<p><span style="line-height: 1.3em;">echo "&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;br&gt;&lt;h1&gt;&lt;span style=\"font-family: 'arial black', 'avant garde'; color: #333399; text-decoration: underline;\"&gt;</span></p>
+<p>You will receive an email with the backup song in a zipped folder.<br />&lt;/span&gt;&lt;/strong&gt;&lt;/h1&gt;";}<br />else<br />{<br />echo "&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt;&lt;br&gt;";<br />}</p>
+<p>?&gt;</p>
+<p>{/source}</p>
+<p><span style="font-family: 'arial black', 'avant garde'; font-size: large; line-height: 1.3em; color: #000000;"> </span></p>
+<p><span style="color: #000000; font-family: 'arial black', 'avant garde'; font-size: large; line-height: 1.3em;">Take the following survey to finish up the task.</span></p>
+<form action="http://www.psumusic.com/thank-you" method="get" name="test">
+<table style="border-color: #201f46; border-width: 5px; border-style: solid;">
+<tbody>
+<tr align="left" valign="middle">
+<td style="text-align: left;"> </td>
+<td> </td>
+</tr>
+<tr align="left" valign="middle">
+<td style="text-align: left;">
+<p><span style="font-family: 'arial black', 'avant garde'; font-size: small;">How easy to understand was the functionality of the PSU<br /> Music Store?</span> </p>
+</td>
+<td style="text-align: left;"><input type="radio" name="psufunc" value="eeasy" />Extremely Easy <input type="radio" name="psufunc" value="easy" />Easy <input type="radio" name="psufunc" value="difficult" />Difficult <input type="radio" name="psufunc" value="edifficult" />Extremely Difficult</td>
+</tr>
+<tr>
+<td style="text-align: left;"> </td>
+<td> </td>
+</tr>
+<tr align="left" valign="middle">
+<td style="text-align: left;">
+<p><span style="font-family: 'arial black', 'avant garde'; font-size: small;">How easy to understand were the conditions of purchase <br />on the PSU Music store?</span></p>
+</td>
+<td style="text-align: left;"><input type="radio" name="psucond" value="eeasy" />Extremely Easy <input type="radio" name="psucond" value="easy" />Easy <input type="radio" name="psucond" value="difficult" />Difficult <input type="radio" name="psucond" value="edifficult" />Extremely Difficult</td>
+</tr>
+<tr align="left" valign="middle">
+<td style="text-align: left;"> </td>
+<td> </td>
+</tr>
+<tr align="left" valign="middle">
+<td style="text-align: left;">
+<p><span style="font-family: 'arial black', 'avant garde'; font-size: small;">How easy to understand was the functionality of the offer<br /> to receive the song via email?</span></p>
+</td>
+<td style="text-align: left;"><input type="radio" name="ofunc" value="eeasy" />Extremely Easy <input type="radio" name="ofunc" value="easy" />Easy <input type="radio" name="ofunc" value="difficult" />Difficult <input type="radio" name="ofunc" value="edifficult" />Extremely Difficult</td>
+</tr>
+<tr align="left">
+<td style="text-align: left;"> </td>
+<td> </td>
+</tr>
+<tr>
+<td style="text-align: left;">
+<p><span style="font-family: 'arial black', 'avant garde'; font-size: small;">How easy to understand were the conditions of the service<br /> to receive the song via email?</span></p>
+</td>
+<td style="text-align: left;"><input type="radio" name="ocond" value="eeasy" />Extremely Easy <input type="radio" name="ocond" value="easy" />Easy <input type="radio" name="ocond" value="difficult" />Difficult <input type="radio" name="ocond" value="edifficult" />Extremely Difficult</td>
+</tr>
+<tr>
+<td style="text-align: left;"> </td>
+<td style="text-align: right;"> </td>
+</tr>
+<tr>
+<td style="text-align: left;">
+<p><span style="font-family: 'arial black', 'avant garde'; font-size: small;">Do you think that receiving a second copy of the song by <br />email is a valuable service?</span></p>
+</td>
+<td style="text-align: left;"><input type="radio" name="vlb" value="vval" />Very Valuable <input type="radio" name="vlb" value="val" />Valuable <input type="radio" name="vlb" value="nval" />Not Valuable <input type="radio" name="vlb" value="nvalaa" />Not Valuable at all</td>
+</tr>
+</tbody>
+</table>
+<input style="width: 0px; padding: 2px;" type="hidden" name="mturk" size="&quot;35" align="right" /> <input style="width: 0px; padding: 2px;" type="hidden" name="age" size="&quot;35" align="right" /> <input style="width: 0px; padding: 2px;" type="hidden" name="country" size="&quot;35" align="right" /> <input style="width: 0px; padding: 2px;" type="hidden" name="sng" size="&quot;35" align="right" /> <input style="width: 0px; padding: 2px;" type="hidden" name="tid" size="&quot;35" align="right" /> <input style="width: 0px; padding: 2px;" type="hidden" name="email" size="&quot;35" align="right" />
+<pre><input onclick="fix()" type="submit" value="Finish" /><span style="color: #333333; font-family: Tahoma, Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.3em;"> </span><span style="color: #333333; font-family: Tahoma, Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.3em;"> </span>
+</pre>
+</form>
+<p><span style="line-height: 1.3em;">{source}</span></p>
+<pre>&lt;?php<br />$file = "psu_records/with_security/records_afterNO.txt";<br />// Open the file to get existing content<br />//$current = file_get_contents($file);<br />// Append a new person to the file<br />//$current .= "John Smith\n";<br />// Write the contents back to the file<br />$current = file_get_contents($file);</pre>
+<pre>$current .= "mturk = ". $_GET["mturk"]. "\t"."age = ". $_GET["age"]."\t"."City/State = ". $_GET["country"]."\t"."song = ". $_GET["sng"]. "\t". <span style="line-height: 1.3em;">"email= ". $_GET["email"].</span><span style="line-height: 1.3em;">" \n";</span></pre>
+<pre>file_put_contents($file, $current );</pre>
+<pre>?&gt; {/source}</pre>
+<p><br />{source} &lt;?php</p>
+<p> if ($_GET["email"] != no) <br />{</p>
+<p>$to = $_GET["email"];<br />$subject = 'Your song attachment';<br />$message = 'The song you requested is available';<br />$headers = 'From: cwnelatury@gmail.com' . "\r\n" . 'Reply-To: cwnelatury@gmail.com' . "\r\n" . 'X-Mailer: PHP/' . phpversion();</p>
+<p>if($_GET["sng"] == Faded)</p>
+<p>{</p>
+<p>$fileatt = "Josh_Woodward_-_Faded_War.zip";<br />$fileatttype = "application/zip"; <br />$fileattname = "Josh_Woodward_-_Faded_War.zip";</p>
+<p>}</p>
+<p>else if($_GET["sng"] == NSurgent)</p>
+<p>{</p>
+<p>$fileatt = "Rapture-N_Surgent.zip";<br />$fileatttype = "application/zip"; <br />$fileattname = "Rapture-N_Surgent.zip";</p>
+<p>}</p>
+<p>else if($_GET["sng"] == Back)</p>
+<p>{</p>
+<p>$fileatt = "Paul_Klason_-_Back_in_the_day.zip";<br />$fileatttype = "application/zip"; <br />$fileattname = "Paul_Klason_-_Back_in_the_day.zip";</p>
+<p>}</p>
+<p>else if($_GET["sng"] == Declaration)</p>
+<p>{</p>
+<p>$fileatt = "Chelsea_Royalty_-_Declaration_Of_Luv.zip";<br />$fileatttype = "application/zip"; <br />$fileattname = "Chelsea_Royalty_-_Declaration_Of_Luv.zip";</p>
+<p>}</p>
+<p>else if($_GET["sng"] == Clever)</p>
+<p>{</p>
+<p>$fileatt = "Trancendam_-_Trancendam___LaurieWebb_-_Aren_t_you_clever.zip";<br />$fileatttype = "application/zip"; <br />$fileattname = "Trancendam_-_Trancendam___LaurieWebb_-_Aren_t_you_clever.zip";</p>
+<p>}</p>
+<p>else if($_GET["sng"] == Place)</p>
+<p>{</p>
+<p>$fileatt = "Skabrot_-_Place_where_I_belong.zip";<br />$fileatttype = "application/zip"; <br />$fileattname = "Skabrot_-_Place_where_I_belong.zip";</p>
+<p>}</p>
+<p> </p>
+<p>// File</p>
+<p>$file = fopen($fileatt, 'rb');<br />$data = fread($file, filesize($fileatt)); <br />fclose($file);<br /> // This attaches the file<br />$semi_rand = md5(time());<br />$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";<br />$headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; <br />$message = "This is a multi-part message in MIME format.\n\n" . "-{$mime_boundary}\n" . "Content-Type: text/plain; charset=\"iso-8859-1\n" . "Content-Transfer-Encoding: 7bit\n\n" . $message .= "\n\n";<br /> $data = chunk_split(base64_encode($data));</p>
+<p><br />$message .= "--{$mime_boundary}\n" . "Content-Type: {$fileatttype};\n" . " name=\"{$fileattname}\"\n" . "Content-Disposition: attachment;\n" . " filename=\"{$fileattname}\"\n" . "Content-Transfer-Encoding: base64\n\n" . $data . "\n\n" . "-{$mime_boundary}-\n";</p>
+<p><br />mail($to, $subject, $message, $headers);</p>
+<p>}</p>
+<pre>?&gt; {/source}</pre>
+<pre style="color: #000000; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 10px; margin: 8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 15.7969px; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px;">{source}
+<span>&lt;?php<br /><br /></span></pre>
+<p style="color: #333333; font-family: Tahoma,Helvetica,Arial,sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 15.7969px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px;"><span><code><span style="color: #000000;"><span style="color: #0000bb;">$handle_2<span class="Apple-converted-space"> </span></span><span style="color: #007700;">= </span><span style="color: #0000bb;">fopen</span><span style="color: #007700;">(</span><span style="color: #dd0000;">"<span>psu_records/with_security/</span><span>before_survey.txt</span>"</span><span style="color: #007700;">, </span><span style="color: #dd0000;">"<em>a</em>"</span><span style="color: #007700;">);</span></span></code></span></p>
+<p style="color: #333333; font-family: Tahoma,Helvetica,Arial,sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 15.7969px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px;"><span><span><code><span style="color: #000000;"><span style="color: #0000bb;">fwrite</span><span style="color: #007700;">(</span><span style="color: #0000bb;">$</span><span style="color: #007700;"><span><code><span style="color: #000000;"><span style="color: #0000bb;">handle_2<span class="Apple-converted-space"> </span></span></span></code></span>,<span class="Apple-converted-space"> </span></span><span style="color: #dd0000;"><span style="line-height: 1.3em;">"ID:  = ". $_GET["tid"]."\t".<span><span><code><span style="color: #000000;"><span style="color: #dd0000;"><span style="line-height: 1.3em;">"song:  = ". $_GET["sng"]</span></span></span></code></span></span><span class="Apple-converted-space"> <span><span><code><span style="color: #000000;"><span style="color: #dd0000;"><span style="line-height: 1.3em;">."\t"</span></span></span></code></span></span></span>.<span class="Apple-converted-space"> </span><span><span><code><span style="color: #000000;"><span style="color: #dd0000;"><span style="line-height: 1.3em;">"mturk = ". $_GET["mturk"]. "\t".</span><span style="line-height: 1.3em;">"age = ". $_GET["age"].</span><span style="line-height: 1.3em;">"\t".</span><span style="line-height: 1.3em;">"ZIP = ". $_GET["country"].</span><span style="line-height: 1.3em;">"\t"</span><span style="line-height: 1.3em;">.<span><span><code><span style="color: #000000;"><span style="color: #dd0000;"><span style="line-height: 1.3em;"><span><span><code><span style="color: #000000;"><span style="color: #dd0000;"><span style="line-height: 1.3em;">"\t".</span><span style="line-height: 1.3em;">"Email = ". $_GET["email"].</span></span></span></code></span></span></span></span></span></code></span></span></span><span style="line-height: 1.3em;">" \n"</span></span><span style="color: #007700;">);</span></span></code></span></span></span></span><span style="color: #007700;"><br style="color: #0000bb;" /></span><span style="color: #0000bb;">fclose</span><span style="color: #007700;">(</span><span style="color: #0000bb;">$</span><span style="color: #007700;"><span><code><span style="color: #000000;"><span style="color: #0000bb;">handle_2<span class="Apple-converted-space"> </span></span></span></code></span>); <span class="Apple-converted-space"> </span></span></span></code></span><code><span style="color: #000000;"><span style="color: #007700;"><br /></span></span></code></span></p>
+<pre style="color: #000000; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 10px; margin: 8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 15.7969px; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px;"><span>?&gt;</span> {/source}</pre>
+<pre> </pre>
