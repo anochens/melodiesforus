@@ -1,0 +1,41 @@
+<p> </p>
+<p> </p>
+<p> </p>
+<pre style="color: #000000; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 10px; margin: 8px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 15.7969px; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px;"> </pre>
+<p> </p>
+<p> </p>
+<p> </p>
+<div style="position: relative; left: 300px; top: 0px; width: 380px; height: 0px;">
+<p style="text-align: center;"><span style="text-decoration: underline;"><span style="font-size: large;"><strong>Instructions:</strong></span></span></p>
+<p><span style="font-size: small;">Thank you for agreeing to take part in this task. When you continue with the task you will be seeing an online shopping environment for music. Please take the opportunity to sample the different songs and interact with the website.</span></p>
+<p><span style="font-size: medium;"> </span></p>
+<p><span style="font-size: small;">In addition to the participation fee, we have allocated to you a budget of $1.50. We require you to purchase exactly one song in the music store which will reduce your budget accordingly. Any remaining budget that you do not spend in the store will be paid to you as a bonus after the completion of the task.</span></p>
+<p><span style="font-size: medium;"> </span></p>
+<p><span style="font-size: small;">After completing your shopping, you will be redirected to a survey. The careful completion of the survey marks the end of the task. <span> After submitting the survey, you will receive a task completion code.</span></span></p>
+<p> </p>
+<p> </p>
+<p> </p>
+</div>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>{source}</p>
+<p>&lt;p style="text-align: center;"&gt;&lt;span style="font-size: x-large;"&gt;&lt;a href="&lt;?php</p>
+<p>$id = array_sum( explode( ' ' , microtime() ) );</p>
+<p><span><code><span style="color: #000000;"><span style="color: #0000bb;">$handle_2 </span><span style="color: #007700;">= </span><span style="color: #0000bb;">fopen</span><span style="color: #007700;">(</span><span style="color: #dd0000;">"<span>psu_records/with_security/</span><span>before_instructions.txt</span>"</span><span style="color: #007700;">, </span><span style="color: #dd0000;">"<em>a</em>"</span><span style="color: #007700;">);</span></span></code></span></p>
+<p><span><span><code><span style="color: #000000;"><span style="color: #0000bb;">fwrite</span><span style="color: #007700;">(</span><span style="color: #0000bb;">$</span><span style="color: #007700;"><span><code><span style="color: #000000;"><span style="color: #0000bb;">handle_2 </span></span></code></span>, </span><span style="color: #dd0000;"><span style="line-height: 1.3em;">"ID:  = ". $id."</span><span style="line-height: 1.3em;">\n"</span></span><span style="color: #007700;">);</span><span style="color: #007700;"><br style="color: #0000bb;" /></span><span style="color: #0000bb;">fclose</span><span style="color: #007700;">(</span><span style="color: #0000bb;">$</span><span style="color: #007700;"><span><code><span style="color: #000000;"><span style="color: #0000bb;">handle_2 </span></span></code></span>);</span></span></code></span></span><br /><br /> if(`tail -n 1 counter.txt` == 0)<br />{<br /><br />$handle = fopen("counter.txt", "a");<br /><br />fwrite($handle , "\n1");<br />fclose($handle );<br />echo "http://www.psumusic.com/songs1?tid=".$id;<br /> }<br /><br />else<br />{<br /> $handle = fopen("counter.txt", "a");<br />fwrite($handle , "\n0");<br />fclose($handle );</p>
+<p>echo "http://www.psumusic.com/songs2?tid=".$id;<br />}<br /><br /> ?&gt;"&gt;&lt;strong&gt;&lt;span style="text-decoration: underline;"&gt;Click to Begin&lt;/span&gt;&lt;/strong&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</p>
+<p>{/source}</p>
+<p> </p>
+<p> </p>
+<p> </p>

@@ -1,0 +1,118 @@
+<p>
+<script type="text/javascript">// <![CDATA[
+function finish()
+{
+window.open("http://www.psumusic.com/thank-you","_self");
+}
+
+window.onload = function()
+                {
+var s = document.URL;
+if(s.indexOf("NSurgent") !== -1)
+{
+window.open("/Rapture-N_Surgent.zip","_self");
+}
+else if(s.indexOf("Faded") !== -1)
+{
+window.open("/Josh_Woodward_-_Faded_War.zip","_self");
+}
+
+else if(s.indexOf("Declaration") !== -1)
+{
+window.open("/Chelsea_Royalty_-_Declaration_Of_Luv.zip","_self");
+}
+
+
+else if(s.indexOf("Place") !== -1)
+{
+window.open("/Skabrot_-_Place_where_I_belong.zip","_self");
+}
+
+
+else if(s.indexOf("Back") !== -1)
+{
+window.open("/Paul_Klason_-_Back_in_the_day.zip","_self");
+}
+
+
+else if(s.indexOf("Clever") !== -1)
+{
+window.open("/Trancendam_-_Trancendam___LaurieWebb_-_Aren_t_you_clever.zip","_self");
+}
+
+};
+
+function next(nxt)
+{
+
+var u = document.URL;
+var i = u.indexOf("?")
+
+if(nxt == "no")
+{
+window.open("http://www.psumusic.com/survey2" + u.substring(i) + "&email=no","_self");
+}
+else
+{
+window.open("http://www.psumusic.com/survey2" + u.substring(i) + "&email=" + document.getElementById('email').value,"_self");
+}
+}
+// ]]></script>
+</p>
+<p> <strong style="line-height: 1.3em;"><span style="font-size: xx-large;">Thank you! <span style="font-size: small;">PSU MUSIC has processed your order.</span></span> </strong></p>
+<table style="width: 1042px; height: 170px;" border="0">
+<tbody>
+<tr>
+<td style="background-color: #8a92ef; height: 75px; border-color: #868877; border-style: solid; border-width: 1px;" valign="middle">
+<p><span style="font-size: x-large; color: #ffffff;"> Get your song sent to you safely and securely with SafeDelivery</span></p>
+</td>
+<td rowspan="2" valign="top">
+<p><img src="http://www.psumusic.com/woman.jpg" border="0" alt="Woman " title="Woman" width="354" height="198" style="float: right;" /></p>
+</td>
+</tr>
+<tr>
+<td style="border-color: #b2b1b4; border-style: solid; border-width: 1px;" valign="top">
+<p><span style="font-size: small;"> </span></p>
+<p> </p>
+<p><span style="font-size: small;"><strong> SafeDelivery offers you the following services:</strong></span></p>
+<span style="font-size: small;">       -Extra security for your song delivery</span><br /><span style="font-size: small;">       -Additional ways to access your song</span><br /><span style="font-size: small;">       -<span style="text-decoration: underline;">SAVE 50% </span> when your song is delivered by email <br /></span></td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<table style="width: 1040px; height: 351px;" border="0">
+<tbody>
+<tr>
+<td style="background-color: #7368f2;" valign="top"><strong><span style="font-size: small; color: #ffffff;">Please type in your email address below</span></strong></td>
+<td style="border-color: #9e94f9; border-style: solid; border-width: 1px;" rowspan="2" valign="top">
+<p><span style="font-size: x-small;"><strong>SafeDelivery benefit details:</strong></span></p>
+<p><span style="font-size: x-small;"> </span></p>
+<p>SafeDelivery is a trustworthy provider for digital communications and the delivery of digital content. This service is offered by leading online music retailers to ensure that customers get the music they want without problems. There are many benefits of using SafeDelivery.<br /> -If you lose your original copy of the song, you will always have a second copy available.<br /> -You save 50% when ordering the delivery of a copy of your song via SafeDelivery email.<br /> -We guarantee that the emailed copy is exactly similar to the initial selection.<br /> -100 Percent satisfaction guaranteed.</p>
+<p><span style="font-size: x-small;"> </span></p>
+<p><span style="font-size: x-small;"><strong>Offer Details:</strong></span></p>
+<p><span style="font-size: x-small;"> </span></p>
+<p>Simply type in your email address and click "Yes" to use our services and to take advantage of the great value that SafeDelivery provides. By clicking "Yes" you will receive a safe email copy of the identical song you selected in the PSU MUSIC store for just $0.50. This is a 50% DISCOUNT for the additional copy. You will SAVE an incredible $0.50 on this purchase. If you decide to not take advantage of this great offer you can click no thanks at the bottom. When you agree to use SafeDelivery you will receive your PSU MUSIC selection delivered in a timely manner by email to your account. Your emailed backup copy of the song will help you to have continued access to your song in case of data loss or when you are using different computers. Alternative offers will not give you the same satisfaction or the same $0.50 DISCOUNT. Because of this special reduced offer price we cannot offer any refunds. We always strive to serve our customers to provide them with the quickest and most reliable mode of music delivery. Our customers have the highest degree of satisfaction with SafeDelivery and we invite you to try our offer.</p>
+</td>
+</tr>
+<tr>
+<td style="border-color: #a398f5; border-style: solid; border-width: 1px; width: 200px;" valign="top">
+<p>Entering your email address below constitutes your electronic signature and we will automatically charge your budget according to the Offer Details to the right.</p>
+<p><span style="font-size: x-small; line-height: 1.3em;"> </span></p>
+<p><span style="font-size: x-small; line-height: 1.3em;"> </span></p>
+<p style="text-align: center;">E-mail Address:  </p>
+<input id="email" style="width: 210px;" type="text" name="firstname" /><br />
+<p> </p>
+<p style="text-align: center;"> <input style="width: 210px; height: 50px; text-align: center;" onclick="next('yes')" type="submit" value="Email Song" /></p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"><input style="width: 80px; height: 25px; text-align: center;" onclick="next('no')" type="submit" value="No Thanks" /></p>
+<p> </p>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<pre>{source}
+<span>&lt;?php<br /><br /></span></pre>
+<p style="color: #333333; font-family: Tahoma,Helvetica,Arial,sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 15.7969px; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px;"><span><code><span style="color: #000000;"><span style="color: #0000bb;">$handle_2<span class="Apple-converted-space"> </span></span><span style="color: #007700;">= </span><span style="color: #0000bb;">fopen</span><span style="color: #007700;">(</span><span style="color: #dd0000;">"<span>psu_records/without_security/</span><span>before_purchase.txt</span>"</span><span style="color: #007700;">, </span><span style="color: #dd0000;">"<em>a</em>"</span><span style="color: #007700;">);</span></span></code></span></p>
+<p><span><span><code><span style="color: #000000;"><span style="color: #0000bb;">fwrite</span><span style="color: #007700;">(</span><span style="color: #0000bb;">$</span><span style="color: #007700;"><span><code><span style="color: #000000;"><span style="color: #0000bb;">handle_2<span class="Apple-converted-space"> </span></span></span></code></span>,<span class="Apple-converted-space"> </span></span><span style="color: #dd0000;"><span style="line-height: 1.3em;">"ID:  = ". $_GET["tid"]."\t".<span><span><code><span style="color: #000000;"><span style="color: #dd0000;"><span style="line-height: 1.3em;">"song:  = ". $_GET["sng"]</span></span></span></code></span></span><span class="Apple-converted-space"> <span><span><code><span style="color: #000000;"><span style="color: #dd0000;"><span style="line-height: 1.3em;">."\t"</span></span></span></code></span></span></span>. <span><span><code><span style="color: #000000;"><span style="color: #dd0000;"><span style="line-height: 1.3em;">"mturk = ". $_GET["mturk"]. "\t".</span><span style="line-height: 1.3em;">"age = ". $_GET["age"].</span><span style="line-height: 1.3em;">"\t".</span><span style="line-height: 1.3em;">"ZIP = ". $_GET["country"].</span><span style="line-height: 1.3em;">"\t"</span><span style="line-height: 1.3em;">.</span><span style="line-height: 1.3em;">" \n"</span></span><span style="color: #007700;">);</span></span></code></span></span></span></span><span style="color: #007700;"><br style="color: #0000bb;" /></span><span style="color: #0000bb;">fclose</span><span style="color: #007700;">(</span><span style="color: #0000bb;">$</span><span style="color: #007700;"><span><code><span style="color: #000000;"><span style="color: #0000bb;">handle_2<span class="Apple-converted-space"> </span></span></span></code></span>);  </span></span></code></span><code><span style="color: #000000;"><span style="color: #007700;"><br /></span></span></code></span></p>
+<pre><span>?&gt;</span> {/source}</pre>
