@@ -7,11 +7,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <script src="./assets/js/jquery.js"></script>
+    <script src="./eventRecorder.js"></script>
+
 	 <script>
 	 $(document).ready(function() {
 		 $('.addToCart').click(function(e) {
-			 var song = $(this).closest("div").find("h6").text();
+			 var song = $(this).closest("div").find(".hiddenSongArtist").text();
+			 var songId = $(this).closest("div").find(".hiddenSongId").text();
 			 $('#cart').html(song+": $0.99");
+			 $('#songId').val(songId);
 		 });
 	 });
 
@@ -65,7 +69,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">PSU Music</a>
+          <span style='font-weight:bold;color:black' class="brand">MelodiesFor.us</span>
         </div>
       </div>
     </div>
@@ -93,7 +97,6 @@
 
       <div id='bigGroup' class='span13' style='margin-right:-10px'>
 
-        
       <div class="row">
 		  
 		  <?php 
@@ -108,10 +111,11 @@
 		  
 		  <div class="span4" style='padding-bottom:10px;padding-left:5px;'>
           <h3 style='margin-top:-5px;margin-bottom:-10px'><?php echo $song_artists[$i-1][0]; ?></h3>
-			 	<h4 style='margin-bottom:-30px'><i>by <?php echo $song_artists[$i-1][1]; ?></i></h4>
-				<h6 style='visibility:hidden'><?php echo implode(' by ',$song_artists[$i-1]); ?></h6>
+			 	<h4 style='margin-bottom:-60px'><i>by <?php echo $song_artists[$i-1][1]; ?></i></h4>
+				<h6 style='visibility:hidden' class='hiddenSongArtist'><?php echo implode(' by ',$song_artists[$i-1]); ?></h6>
+				<h6 style='visibility:hidden' class='hiddenSongId'><?php echo $i; ?></h6>
 					<div>
-						<?php echo "<img style='float:left' src='./songs/song$i"."_cover.jpg' width='100' height='100' />";  ?>
+						<?php echo "<img style='float:left' src='./songs/song$i"."_cover.jpg' width=100 height=100 />";  ?>
 					</div>
 					
 					<object style='float:right' data="dewplayer-mini.swf" width="160" height="20" name="dewplayer" id="dewplayer" type="application/x-shockwave-flash">
@@ -123,7 +127,7 @@
 					<param name="wmode" value="transparent" />
 					</object>
 					<br/>
-          <a class="btn addToCart" style='margin-top:20px;float:right' href="#">Add to cart ($0.99) &raquo;</a>
+          <a class="btn addToCart" style='margin-top:20px;float:right' id='addToCartBtn<?php echo $i; ?>'href="#">Add to cart ($0.99) &raquo;</a>
         </div>
 		  
 		  <?php   
@@ -132,7 +136,37 @@
 		  
 		  ?>
 		</div> <!--last song block -->
-      </div> <!-- big block of songs -->
+
+
+      <div id='secondStage' class='row' style='display:none'>
+			<div class='span8'>
+				<div name='extraInfoContent' style='padding-left:20px;max-width:400px'> 
+					<h4 style='text-decoration:underline'>Please enter the following information to complete your purchase:</h4>
+
+					<form id='purchaseForm' action='purchase.php' method='POST'>
+					<div>
+						<input type='text' class='input-block-level' placeholder='Mechanical Turk ID' name='mturk_id' /></td></tr>
+						<input type='text' class='input-block-level' placeholder='Age' name='age' />
+						<input type='text' class='input-block-level' placeholder='Zip Code' name='zip' />
+         			<input type="hidden" id='songId' name="songId" value="" />
+					</div>
+
+					<br/><br/>
+					
+					<p>Once you confirm your purchase, the download of the song wil be initiated. For you convenience, you will receieve a compressed zip file with the song.</p>
+					<br/>
+
+					<a href="#" class="btn btn-large" onclick="$('#purchaseForm').submit()">Proceed &raquo;</a>
+
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+
+
+      </div> <!-- big group of songs -->
 
 
 		<div id='rightSide' class='span3'> 
@@ -147,8 +181,8 @@
 
 					<div class='row'>
 						<div class="span3" id='cartBtnArea'>
-							<a class="btn" href="#" onclick='doPurchase();'>Purchase</a>
-							<a class="btn" href="#" onclick="$('#cart').html('');">Clear cart</a>
+							<a class="btn" href="#" id='purchaseBtn' onclick='doPurchase();'>Purchase</a>
+							<a class="btn" href="#" id='clearCartBtn' onclick="$('#cart').html('');">Clear cart</a>
 						</div>
 					</div>
 											
@@ -169,7 +203,18 @@
           	alert('You must add a song to your cart.');
 				return false;
 			 }
+			 insertPurchaseScreen();
 			 return true;
+		 }
+
+		 function insertPurchaseScreen() {
+			$('#bigGroup .row:not(#secondStage)').hide();
+			$('#cartBtnArea').html("---------------------------------<br/>Total: $0.99");
+			$('#cartBtnArea').css('align','right');
+
+
+
+			$('#secondStage').show();
 		 }
 
 		 </script>

@@ -62,4 +62,17 @@ function enter_new_ip() {
 
    $prep = $db->prepare($sql);
 	$prep->execute(array(get_ip(),$new_id));
+
+	//set a cookie with the session id to use for logging later
+	setcookie('sid', $db->lastInsertId(), time()+60*60*24*30);
+}
+
+
+function recordEvent($session_id, $page_name, $subject_name, $event_name, $current_time) {
+	$db = db_connect();
+
+	$sql = 'INSERT INTO page_event(session_id, page_name, subject_name, event_name, ts) VALUES(?,?,?,?, ?)';
+
+   $prep = $db->prepare($sql);
+	$prep->execute(array($session_id, $page_name, $subject_name, $event_name, $current_time)); 
 }
