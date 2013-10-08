@@ -41,6 +41,7 @@
 			height: 150px;
 			max-width:170px;
 			padding: 10px;
+			padding-right:15px;
 			border: 3px solid black;
 		}
 		#cartSongArea {
@@ -118,7 +119,7 @@
 						<?php echo "<img style='float:left' src='./songs/song$i"."_cover.jpg' width=100 height=100 />";  ?>
 					</div>
 					
-					<object style='float:right' data="dewplayer-mini.swf" width="160" height="20" name="dewplayer" id="dewplayer" type="application/x-shockwave-flash">
+					<object style='float:right' onmousedown='logEvent("player<?php echo $i;?>","click", true)' data="dewplayer-mini.swf" width="160" height="20" name="dewplayer" id="dewplayer" type="application/x-shockwave-flash">
 					
 					<param name="movie" value="dewplayer-mini.swf" />
 					<?php
@@ -169,7 +170,7 @@
       </div> <!-- big group of songs -->
 
 
-		<div id='rightSide' class='span3'> 
+		<div id='rightSide' class='span3'>
 			<div class='row'>
 				<div id='cartSpan' class='span3'>
 					<div class='row'>
@@ -191,7 +192,6 @@
 
 			<div class='row'>
 				<div class="span3" id='cartSecurityArea'>
-					Security indicators go here.
 				</div>
 			</div>    
 		</div>  <!-- right side -->
@@ -203,6 +203,7 @@
           	alert('You must add a song to your cart.');
 				return false;
 			 }
+			 logEvent('purchaseBtn', 'click+success', true);
 			 insertPurchaseScreen();
 			 return true;
 		 }
