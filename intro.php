@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>PSU Music</title>
+    <title>MelodiesFor.us</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -15,7 +15,8 @@
         padding-bottom: 40px;
       }
     </style>
-    <link href="./assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <script src="./assets/js/jquery.js"></script>
+    <script src="./eventRecorder.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -35,7 +36,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">PSU Music</a>
+          <span style='font-weight:bold;color:black' class="brand">MelodiesFor.us</span>
         </div>
       </div>
     </div>
@@ -45,10 +46,10 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
         <h2 style='text-align:center'>Instructions</h2>
-        <p>Thank you for agreeing to take part in this task. When you continue with the task you will see an online shopping environment for music. Please take the chance to sample to different songs</p>
+        <p>Thank you for agreeing to take part in this task. When you continue with the task you will see an online shopping environment for music. Please take the chance to sample different songs</p>
 		  <p>In addition to the participation fee, we have allocated to you a budget of $1.50. You are required to purchase exactly one song in the music store. This purchase will reduce your budget accordingly. Any budget that remains at the end of task will be paid to you as a bonus.</p>
 		  <p>After completing your shopping, you will be redirected to a survey. Once you complete the survey the task is finished, and you will receieve a task completion code.</p>
-        <p style='text-align:center'><a href="shopping.php" class="btn btn-primary btn-large">Click to Begin &raquo;</a></p>
+        <p style='text-align:center'><a id='beginBtn' href="shopping.php" class="btn btn-primary btn-large">Click to Begin &raquo;</a></p>
       </div>
 
       <!-- Example row of columns 
@@ -63,7 +64,6 @@
       <hr>
 
       <footer>
-        <p>&copy; Company 2013</p>
       </footer>
 
     </div> <!-- /container -->
@@ -71,7 +71,6 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./assets/js/jquery.js"></script>
     <script src="./assets/js/bootstrap-transition.js"></script>
     <script src="./assets/js/bootstrap-alert.js"></script>
     <script src="./assets/js/bootstrap-modal.js"></script>
