@@ -53,7 +53,7 @@ function get_new_treatment() {
    return $data[$rand_index];
 }
 
-function enter_new_ip() {
+function enter_new_session() {
 	$db = db_connect();
 
 	$new_treatment = get_new_treatment();
@@ -64,7 +64,18 @@ function enter_new_ip() {
 	$prep->execute(array(get_ip(),$new_id));
 
 	//set a cookie with the session id to use for logging later
-	setcookie('sid', $db->lastInsertId(), time()+60*60*24*30);
+	$sid = $db->lastInsertId();
+	setcookie('sid', $sid, time()+60*60*24*30);
+
+	$sql = "SELECT treatment.* FROM session, treatment WHERE session.treatment_id = treatment.id AND session.id = $sid";
+
+   $data = runQuery($db, $sql, true);
+	$treatment = $data[0];
+ 
+	setcookie('treatment-id', $treatment['id'], time()+60*60*24*30);
+	setcookie('treatment-description', $treatment['description'], time()+60*60*24*30);
+	setcookie('opt', $treatment['opt'], time()+60*60*24*30);
+	setcookie('pre-pop', $treatment['pre-pop'], time()+60*60*24*30);
 }
 
 
