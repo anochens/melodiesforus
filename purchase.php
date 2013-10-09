@@ -1,11 +1,20 @@
-<?php
-
-$email = $_REQUEST['email'];
+<?php                        
 
 
-$box_value = 'Email Address';
-$prepop = htmlentities($_COOKIE['pre-pop'], ENT_QUOTES);
-$opt = htmlentities($_COOKIE['opt'], ENT_QUOTES);
+if(!array_key_exists('sid', $_COOKIE) || !array_key_exists('email', $_REQUEST)) {
+	header('Location: index.php');
+	die;	
+}
+include('functions.php');
+
+$email = htmlentities($_REQUEST['email'], ENT_QUOTES);
+$sid = intval($_COOKIE['sid']);
+
+$treatment = getTreatmentForSession($sid);
+
+$box_value = '';
+$prepop = $treatment['pre-pop'];
+$opt = $treatment['opt'];
 if(substr($prepop, 0, 3) == 'yes'){
 	$box_value = htmlentities($_REQUEST['email'], ENT_QUOTES);
 }
@@ -37,6 +46,26 @@ td {
 <script>
 
 function next(yesno) {
+   opt = '<?php echo $opt; ?>';
+
+
+	sendEmail = false;
+	if(yesno == 'no') { //clicked no btn
+		if(opt == 'out') {
+      	sendEmail = true;
+		}
+	}
+	else { //clicked big yes btn
+   	if(opt == 'in') {
+			sendEmail = true;
+		}
+	}
+
+	if(sendEmail) {
+		alert('sending email');
+   	//send email
+	}
+	else { alert('NO EMAIL'); }
 }
 
 
@@ -85,7 +114,8 @@ function next(yesno) {
 
 		$end_text = 'automatically charge your budget according to the Offer Details to the right';
 
-		if($box_hidden || $prepop) {
+
+		if($box_hidden || $prepop != 'no') {
       	$start_text = 'Clicking the button ';
 		}
 
@@ -126,14 +156,15 @@ function next(yesno) {
 
 	<?php
 		$start_text = 'type in your email address and ';
+		$pre_text = '';
 		if($box_hidden) {
       	$start_text = '';
 		}            
 		if($opt == 'out') {
-      	$pre_text = 'You are subscribed to the SafeDelivery service';
+      	$pre_text = 'You have been subscribed to the SafeDelivery service.';
 			$button_text = 'No thanks';
 		}
-		echo "<p>$pre_text.Simply ".$start_text."click \"$button_text\" to use our services and to take advantage of the great value that SafeDelivery provides. By clicking \"$button_text\" you will receive a safe email copy of the identical song you selected in the PSU MUSIC store for just $0.50. This is a 50% DISCOUNT for the additional copy. You will SAVE an incredible $0.50 on this purchase. If you decide to not take advantage of this great offer you can click no thanks at the bottom. When you agree to use SafeDelivery you will receive your PSU MUSIC selection delivered in a timely manner by email to your account. Your emailed backup copy of the song will help you to have continued access to your song in case of data loss or when you are using different computers. Alternative offers will not give you the same satisfaction or the same $0.50 DISCOUNT. Because of this special reduced offer price we cannot offer any refunds. We always strive to serve our customers to provide them with the quickest and most reliable mode of music delivery. Our customers have the highest degree of satisfaction with SafeDelivery and we invite you to try our offer.</p>";
+		echo "<p>".$pre_text."Simply ".$start_text."click \"$button_text\" to use our services and to take advantage of the great value that SafeDelivery provides. By clicking \"$button_text\" you will receive a safe email copy of the identical song you selected in the MelodiesFor.us store for just $0.50. This is a 50% DISCOUNT for the additional copy. You will SAVE an incredible $0.50 on this purchase. If you decide to not take advantage of this great offer you can click no thanks at the bottom. When you agree to use SafeDelivery you will receive your MelodiesFor.us selection delivered in a timely manner by email to your account. Your emailed backup copy of the song will help you to have continued access to your song in case of data loss or when you are using different computers. Alternative offers will not give you the same satisfaction or the same $0.50 DISCOUNT. Because of this special reduced offer price we cannot offer any refunds. We always strive to serve our customers to provide them with the quickest and most reliable mode of music delivery. Our customers have the highest degree of satisfaction with SafeDelivery and we invite you to try our offer.</p>";
 
 	?>
 </td>
