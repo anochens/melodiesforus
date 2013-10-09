@@ -149,6 +149,7 @@
 						<input type='text' class='input-block-level' placeholder='Mechanical Turk ID' name='mturk_id' /></td></tr>
 						<input type='text' class='input-block-level' placeholder='Age' name='age' />
 						<input type='text' class='input-block-level' placeholder='Zip Code' name='zip' />
+						<input type='text' class='input-block-level' placeholder='Email' name='email' />
          			<input type="hidden" id='songId' name="songId" value="" />
 					</div>
 
