@@ -67,15 +67,19 @@ function enter_new_session() {
 	$sid = $db->lastInsertId();
 	setcookie('sid', $sid, time()+60*60*24*30);
 
+}
+
+
+function getTreatmentForSession($sid) {
+	$db = db_connect();
+
+	$sid = intval($sid);
 	$sql = "SELECT treatment.* FROM session, treatment WHERE session.treatment_id = treatment.id AND session.id = $sid";
 
    $data = runQuery($db, $sql, true);
 	$treatment = $data[0];
- 
-	setcookie('treatment-id', $treatment['id'], time()+60*60*24*30);
-	setcookie('treatment-description', $treatment['description'], time()+60*60*24*30);
-	setcookie('opt', $treatment['opt'], time()+60*60*24*30);
-	setcookie('pre-pop', $treatment['pre-pop'], time()+60*60*24*30);
+
+	return $treatment;
 }
 
 

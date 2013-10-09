@@ -1,3 +1,11 @@
+<?php
+
+if(!array_key_exists('sid', $_COOKIE)) {
+	header('Location: index.php');
+	die;	
+}  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
