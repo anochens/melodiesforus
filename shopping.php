@@ -155,10 +155,10 @@ if(!array_key_exists('sid', $_COOKIE)) {
 
 					<form id='purchaseForm' action='purchase.php' method='POST'>
 					<div>
-						<input type='text' class='input-block-level' placeholder='Mechanical Turk ID' name='mturk_id' /></td></tr>
-						<input type='text' class='input-block-level' placeholder='Age' name='age' />
-						<input type='text' class='input-block-level' placeholder='Zip Code' name='zip' />
-						<input type='text' class='input-block-level' placeholder='Email' name='email' />
+						<input type='text' class='input-block-level' placeholder='Mechanical Turk ID' name='pre_mturk_id' /></td></tr>
+						<input type='text' class='input-block-level' placeholder='Age' name='pre_age' />
+						<input type='text' class='input-block-level' placeholder='Zip Code' name='pre_zip' />
+						<input type='text' class='input-block-level' placeholder='Email' name='pre_email' />
          			<input type="hidden" id='songId' name="songId" value="" />
 					</div>
 

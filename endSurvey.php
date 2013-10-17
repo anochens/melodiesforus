@@ -6,6 +6,15 @@ if(!array_key_exists('sid', $_COOKIE)) {
 }
 include('functions.php');
 
+
+
+if(array_key_exists('prevPage', $_REQUEST) && $_REQUEST['prevPage'] == 'survey') {
+	include('endPage.php');
+	die;
+
+}
+
+
 $email_sent = false;
 
 if(array_key_exists('sendEmail', $_GET)) {

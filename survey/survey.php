@@ -43,7 +43,6 @@ $s->printSections();
 ?>
 
 <fieldset>
-<input name='forceNewSession' value='true' type='hidden'>
 <input type='hidden' name='prevPage' value='survey' />
 <button type='submit' value='Submit'>Submit</button>
 </fieldset>
