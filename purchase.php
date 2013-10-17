@@ -53,6 +53,7 @@ td {
 function next(yesno) {
    opt = '<?php echo $opt; ?>';
 
+	logEvent('opt_'+opt+'_btn', 'opt_'+opt+'='+yesno, false);
 
 	sendEmail = false;
 	if(yesno == 'no') { //clicked no btn
@@ -65,12 +66,6 @@ function next(yesno) {
 			sendEmail = true;
 		}
 	}
-
-	if(sendEmail) {
-		alert('sending email');
-   	//send email
-	}
-	else { alert('NO EMAIL'); }
 
 	post_email = $('#post_email').val();
 

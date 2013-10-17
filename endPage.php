@@ -2,13 +2,8 @@
 
 processSurveyAndCreateSession();
 
-
 include('thankYouPage.php');
 die;
-
-
-
-
 
 
 
