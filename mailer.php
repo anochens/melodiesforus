@@ -10,8 +10,9 @@ if(!array_key_exists('sid', $_COOKIE)) {
 date_default_timezone_set("America/New_York");
 $random_hash = md5(date('r', time())); 
 
+if(!isset($to))
+	$to = 'anochenson@gmail.com';
 
-$to = 'anochenson@gmail.com';
 $subject = 'SafeDelivery: Your song';
 $headers = "From: admin@safedelivery.com\r\nReply-To: noreply@safedelivery.com"; 
 $headers .= "\r\nContent-Type: multipart/mixed; boundary=\"PHP-mixed-".$random_hash."\""; 
@@ -51,4 +52,4 @@ Content-Disposition: attachment
 $message = ob_get_clean(); 
 $mail_sent = @mail( $to, $subject, $message, $headers ); 
 
-echo $mail_sent ? "Mail sent" : "Mail failed"; 
+//echo $mail_sent ? "Mail sent" : "Mail failed"; 

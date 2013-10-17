@@ -69,6 +69,51 @@ function enter_new_session() {
 
 }
 
+function edit_session($data, $ignoreOtherData, $prepost) {
+	$db = db_connect();
+	$fields=array();
+
+	if(array_key_exists('pre_mturk_id',$data)) {
+		$fields []= 'pre_mturk_id';
+	}
+
+	if(array_key_exists($prepost.'_email',$data)) {
+		$fields []= $prepost.'_email';
+	}              
+
+	if(!$ignoreOtherData) {
+		$data[$prepost.'_info'] = json_encode($data); 
+		$fields[] = $prepost.'_info';
+	}
+
+
+	if(array_key_exists('email_sent',$data)) {
+		$fields []= 'email_sent';
+	}                   
+
+
+	$fields_str = array_reduce($fields, function($arr, $v) {
+		if(!$arr) $arr = array();
+      $arr []= $v."=:".$v;
+		return $arr;
+	});
+	$fields_str = implode(',',$fields_str);
+
+	$sid = intval($_COOKIE['sid']);
+
+	$sql = "UPDATE session SET $fields_str WHERE id=:sid";
+
+   $prep = $db->prepare($sql);
+
+	$prep->bindParam(':sid', $sid);
+
+	foreach($fields as $key) {
+   	$prep->bindParam(':'.$key, $data[$key]);
+	}
+
+	$prep->execute();
+}
+ 
 
 function getTreatmentForSession($sid) {
 	$db = db_connect();
@@ -81,6 +126,18 @@ function getTreatmentForSession($sid) {
 
 	return $treatment;
 }
+
+function getEmailForCurrentSession() {
+	if(!array_key_exists('sid', $_COOKIE)) return 'NO SESSION';
+	$db = db_connect();
+
+	$sid = intval($_COOKIE['sid']);
+	$sql = "SELECT pre_email FROM session WHERE id = $sid";
+
+   $data = runQuery($db, $sql, true);
+
+	return $data[0]['pre_email'];
+}             
 
 
 function recordEvent($session_id, $page_name, $subject_name, $event_name, $current_time) {
