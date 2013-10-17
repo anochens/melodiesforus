@@ -46,6 +46,7 @@ edit_session(array('post_email'=>$email, 'sid'=>$sid, 'email_sent'=>var_export($
 		$('button').addClass('btn-primary');
 		$('button').addClass('btn-large');
 		$('button').css('margin-left','40%');
+		$('button').eq(0).attr('id','submitBtn');
   });
 </script> 
  

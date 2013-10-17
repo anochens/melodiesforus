@@ -20,12 +20,13 @@ function getCurrentTime() {
 	return formatted;
 }
 
+//stuff to do when the page loads
 $(document).ready(function() {
 	logEvent('page','load');
 
-	$('a').bind("click",function(e) {
+	$('a, button').bind("click",function(e) {
 		async = true;
-      if($(this).attr('href') != '#') {
+      if($(this).attr('href') != '#' || $(this).attr('type') == 'submit') {
 			async = false;
 		}
 

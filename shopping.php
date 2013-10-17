@@ -167,7 +167,8 @@ if(!array_key_exists('sid', $_COOKIE)) {
 					<p>Once you confirm your purchase, the download of the song wil be initiated. For you convenience, you will receieve a compressed zip file with the song.</p>
 					<br/>
 
-					<a href="#" class="btn btn-large" onclick="$('#purchaseForm').submit()">Proceed &raquo;</a>
+			 
+					<a href="#" class="btn btn-large" id='proceedBtn' onclick="logEvent('proceedBtn', 'click', false); $('#purchaseForm').submit()">Proceed &raquo;</a>
 
 					</form>
 				</div>
@@ -224,6 +225,7 @@ if(!array_key_exists('sid', $_COOKIE)) {
 			$('#cartBtnArea').css('align','right');
 
 
+			logEvent('secondStage', 'show');
 
 			$('#secondStage').show();
 		 }
