@@ -56,7 +56,7 @@ if(!array_key_exists('sid', $_COOKIE)) {
         <h2 style='text-align:center'>Instructions</h2>
         <p>Thank you for agreeing to take part in this task. When you continue with the task you will see an online shopping environment for music. Please take the chance to sample different songs</p>
 		  <p>In addition to the participation fee, we have allocated to you a budget of $1.50. You are required to purchase exactly one song in the music store. This purchase will reduce your budget accordingly. Any budget that remains at the end of task will be paid to you as a bonus.</p>
-		  <p>After completing your shopping, you will be redirected to a survey. Once you complete the survey the task is finished, and you will receieve a task completion code.</p>
+		  <p>After completing your shopping, you will be redirected to a survey. Once you complete the survey the task is finished, and you will receive a task completion code.</p>
         <p style='text-align:center'><a id='beginBtn' href="shopping.php" class="btn btn-primary btn-large">Click to Begin &raquo;</a></p>
       </div>
 

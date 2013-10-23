@@ -50,24 +50,34 @@ function get_new_treatment() {
 	}
 	$data = $min_treatments;
    $rand_index = array_rand($data);
-   return $data[$rand_index];
+   return $data[$rand_index]['id'];
 }
 
-function enter_new_session() {
+
+function enter_new_session($param_hitId, $param_workerId) {
+   $db = db_connect();
+
+   $sql = 'INSERT INTO session(ip, param_hitId, param_workerId, treatment_id) VALUES(?,?,?,?)';
+
+print $param_hitId.",".$param_hitId;
+   $prep = $db->prepare($sql);
+   $prep->execute(array(get_ip(),$param_hitId, $param_workerId, get_new_treatment()));
+
+   $sid = $db->lastInsertId();
+   setcookie('sid', $sid, time()+60*60*24*30, '/');
+   return $sid;
+}
+
+
+function enter_new_look($param_hitId) {
 	$db = db_connect();
 
-	$new_treatment = get_new_treatment();
-	$new_id = $new_treatment['id'];
-	$sql = 'INSERT INTO session(ip, treatment_id) VALUES(?,?)';
+	$sql = 'INSERT INTO looks(ip, param_hitId) VALUES(?,?)';
 
    $prep = $db->prepare($sql);
-	$prep->execute(array(get_ip(),$new_id));
-
-	//set a cookie with the session id to use for logging later
-	$sid = $db->lastInsertId();
-	setcookie('sid', $sid, time()+60*60*24*30);
-
+	$prep->execute(array(get_ip(),$param_hitId));
 }
+
 
 function edit_session($data, $ignoreOtherData, $prepost) {
 	$db = db_connect();
@@ -91,6 +101,10 @@ function edit_session($data, $ignoreOtherData, $prepost) {
 		$fields []= 'email_sent';
 	}                   
 
+	if($prepost == 'look') {
+   	$fields = array_keys($data);
+	}
+
 
 	$fields_str = array_reduce($fields, function($arr, $v) {
 		if(!$arr) $arr = array();
@@ -99,8 +113,8 @@ function edit_session($data, $ignoreOtherData, $prepost) {
 	});
 	$fields_str = implode(',',$fields_str);
 
-	$sid = intval($_COOKIE['sid']);
 
+	$sid = intval($_COOKIE['sid']);
 	$sql = "UPDATE session SET $fields_str WHERE id=:sid";
 
    $prep = $db->prepare($sql);
