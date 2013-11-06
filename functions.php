@@ -59,7 +59,6 @@ function enter_new_session($param_hitId, $param_workerId) {
 
    $sql = 'INSERT INTO session(ip, param_hitId, param_workerId, treatment_id) VALUES(?,?,?,?)';
 
-print $param_hitId.",".$param_hitId;
    $prep = $db->prepare($sql);
    $prep->execute(array(get_ip(),$param_hitId, $param_workerId, get_new_treatment()));
 
@@ -68,16 +67,33 @@ print $param_hitId.",".$param_hitId;
    return $sid;
 }
 
+function enter_new_look($data) {
+   $param_hitId = '';
+   $param_workerId = '';
 
-function enter_new_look($param_hitId) {
-	$db = db_connect();
+   if(array_key_exists('workerId', $data)) {
+      $param_workerId = $data['workerId'];
+   }
 
-	$sql = 'INSERT INTO looks(ip, param_hitId) VALUES(?,?)';
+   if(array_key_exists('hitId', $data)) {
+      $param_hitId = $data['hitId'];
+   }
+	else {
+		return;
+	}
+
+	$time = '';
+   if(array_key_exists('time', $data)) {
+      $time = $data['time'];
+   }      
+
+   $db = db_connect();
+
+   $sql = 'INSERT INTO looks(ip, param_hitId, param_workerId, ts) VALUES(?,?,?, ?)';
 
    $prep = $db->prepare($sql);
-	$prep->execute(array(get_ip(),$param_hitId));
+   $prep->execute(array(get_ip(),$param_hitId, $param_workerId, $time));
 }
-
 
 function edit_session($data, $ignoreOtherData, $prepost) {
 	$db = db_connect();
@@ -101,7 +117,7 @@ function edit_session($data, $ignoreOtherData, $prepost) {
 		$fields []= 'email_sent';
 	}                   
 
-	if($prepost == 'look') {
+	if($prepost == 'override') {
    	$fields = array_keys($data);
 	}
 

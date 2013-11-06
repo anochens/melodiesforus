@@ -4,6 +4,8 @@ if(!array_key_exists('sid', $_COOKIE)) {
 	header('Location: index.php');
 	die;	
 }  
+
+edit_session(array('consent'=>'yes'),true, 'override'); 
 ?>
 
 <!DOCTYPE html>

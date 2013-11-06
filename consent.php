@@ -1,3 +1,40 @@
+
+<?php
+
+if(array_key_exists('sid', $_COOKIE)) {
+	header("Location: index.php");
+	die;
+}
+
+include_once('functions.php');
+
+$hitId = '';
+$workerId = '';
+if(array_key_exists('hitId', $_REQUEST)) {
+	$hitId = $_REQUEST['hitId'];
+}
+
+if(array_key_exists('workerId', $_REQUEST)) {
+	$workerId = $_REQUEST['workerId'];
+}                                 
+
+
+if(array_key_exists('override', $_REQUEST)) {
+	$hitId = 'testing_hit_id';
+	$workerId = 'test_mturk_id';
+}        
+
+if($hitId && $workerId) {
+	$sid = enter_new_session($hitId, $workerId);
+}
+else {
+	die("This page can only be accessed through the Mechanical Turk HIT. Please accept the task and click the link to this page from there.");
+}
+?>     
+
+
+<script src="./eventRecorder.js"></script>
+
 <script src="//code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <link href="./assets/css/bootstrap.css" rel="stylesheet">
 <p>&nbsp;</p>
@@ -34,6 +71,7 @@
 		</tr>
 	</tbody>
 </table>
+<br>
 
 <ol>
 	<li><strong>Purpose of the Study:</strong>&nbsp; We aim to study music purchasing behaviors.</li>
@@ -48,22 +86,19 @@
 
 </div>
 
-<script>
-hitId = turkGetParam('hitId');
-workerId = turkGetParam('workerId');
-link = 'http://www.melodiesfor.us/?param_hitId='+hitId+'&param_workerId='+workerId;
-document.write("<a id='beginBtn' href='"+link+"' class='btn btn-primary btn-small'>I agree to the above terms.</a>");
-</script>
-    <script src="./assets/js/bootstrap-transition.js"></script>
-    <script src="./assets/js/bootstrap-alert.js"></script>
-    <script src="./assets/js/bootstrap-modal.js"></script>
-    <script src="./assets/js/bootstrap-dropdown.js"></script>
-    <script src="./assets/js/bootstrap-scrollspy.js"></script>
-    <script src="./assets/js/bootstrap-tab.js"></script>
-    <script src="./assets/js/bootstrap-tooltip.js"></script>
-    <script src="./assets/js/bootstrap-popover.js"></script>
-    <script src="./assets/js/bootstrap-button.js"></script>
-    <script src="./assets/js/bootstrap-collapse.js"></script>
-    <script src="./assets/js/bootstrap-carousel.js"></script>
-    <script src="./assets/js/bootstrap-typeahead.js"></script>
- 
+
+<a id='beginBtn' class='btn btn-primary btn-small' href='/'>I agree to the above terms</a>
+
+<script src="./assets/js/bootstrap-transition.js"></script>
+<script src="./assets/js/bootstrap-alert.js"></script>
+<script src="./assets/js/bootstrap-modal.js"></script>
+<script src="./assets/js/bootstrap-dropdown.js"></script>
+<script src="./assets/js/bootstrap-scrollspy.js"></script>
+<script src="./assets/js/bootstrap-tab.js"></script>
+<script src="./assets/js/bootstrap-tooltip.js"></script>
+<script src="./assets/js/bootstrap-popover.js"></script>
+<script src="./assets/js/bootstrap-button.js"></script>
+<script src="./assets/js/bootstrap-collapse.js"></script>
+<script src="./assets/js/bootstrap-carousel.js"></script>
+<script src="./assets/js/bootstrap-typeahead.js"></script>
+
