@@ -22,15 +22,6 @@ class SurveyParts {
 			'country' => array('label' => 'What is your country of origin?', 'type' => 'radio', 'options' => array('United States', 'India', 'Canada', 'None of the above'))
 			));
 
-		$nfcPre = "Please indicate the extent to which you agree or disagree with the following statement by marking the circular button of the option you prefer.";
-		$nfc = array('pre' => $nfcPre, 'title' => 'Self-assessment', 
-		'data' => array(
-		 'nfc1' => array('label' => 'I would rather do something that requires little thought than something that is sure to challenge my thinking abilities.', 'type' => 'likert', 'size' => '9'),
-		 'nfc2' => array('label' => 'I try to anticipate situations where there is a likely chance I\'ll have to think in depth about something.', 'type' => 'likert', 'size' => '9'),
-		 'nfc3' => array('label' => 'I only think as hard as I have to.', 'type' => 'likert', 'size' => '9'),
-		 'nfc4' => array('label' => 'The idea of relying on thought to get my way to the top does not appeal to me.', 'type' => 'likert', 'size' => '9'),
-		 'nfc5' => array('label' => 'The notion of thinking abstractly is not appealing to me.', 'type' => 'likert', 'size' => '9'),
-		));
 
 		$times = array('', 'Daily', 'Weekly', 'Monthly', 'Rarely', 'Never');
 
@@ -38,7 +29,7 @@ class SurveyParts {
 		'data'=>array(
 			'shopping_whichSong' => array('label' => 'Which song did you purchase?', 'type' => 'select', 'options' => array('United States', 'India', 'Canada', 'None of the above')),
 			'shopping_oftenPurchase' => array('label' => 'How often do you purchase music online?', 'type' => 'select', 'options' => $times),
-			'shopping_spendPerMonth'=> array('label'=> 'How much do you spend on average per month on music purchases?'),
+			'shopping_spendPerMonth'=> array('label'=> 'How much do you spend on average per month on music purchases? $'),
 			'shopping_oftenStreaming' => array('label' => 'How often do you stream music online?', 'type' => 'select', 'options' => $times),
 		));
 
@@ -52,7 +43,7 @@ class SurveyParts {
  
 		$badExp =  array('title'=>'Online experience questions',
 		'data'=>array(
-			'badExp_wrongProductCount' => array('label' => 'How many times have you received the wrong product when order online?', 'type' => 'radio', 'options' => array('0','1-2','3-4','5+')),
+			'badExp_wrongProductCount' => array('label' => 'How many times have you received the wrong product when ordering online?', 'type' => 'radio', 'options' => array('0','1-2','3-4','5+')),
 			'badExp_didntRemember' => array('label' => 'Have you ever received a product that you did not remember ordering?', 'type' => 'radio', 'options' => array('Yes', 'No')),
 			'badExp_beenScamTarget' => array('label' => 'Have you ever been the target of any kind of purchasing scam?', 'type' => 'radio', 'options' => array('Yes', 'No')),
 			'badExp_privacyConcern' => array('label' => 'How concerned are you about your privacy online?', 'type' => 'likert', 'left'=>'Not concerned','right'=>'Very concerned'),
@@ -83,10 +74,17 @@ class SurveyParts {
 			'safeDelivery_howValuable' => array('label' => 'How valuable is this service?', 'type' => 'likert', 'size' => 5, 'left'=>'Not valuable', 'right'=>'Very valuable'),
 		));                                                              
 
-		$this->addComponents($demo, $scamAvoid, $badExp, $shopping, $safeDelivery, $integrity, $impulse, $comfort);
+		$this->addComponents($demo);
+		$this->addComponents($shopping);
+		$this->addComponents($safeDelivery);
+		$this->addComponents($badExp);
+		$this->addComponents($scamAvoid);
+		$this->addComponents($comfort);
+		$this->addComponents($impulse);
+		$this->addComponents($integrity);
 	}
 
-	function __construct($randomizeSections = true, $firstStable = true) {
+	function __construct($randomizeSections = false, $firstStable = true) {
 		$this->fillArrays();
 	
 		for($i=0;$i<count($this->sections);$i++) {
@@ -149,19 +147,21 @@ class SurveyParts {
 				if(array_key_exists('size', $details)) {
 					$size = intval($details['size']);
 				}
-				$result .= '<br><ul><li><span style="float:left;min-width:150px">'.$details['left'].'&nbsp;</span>';
+				$result .= '<br><ul><li><span style="float:left;min-width:50px;padding-right:10px;">'.$details['left'].'</span>';
 
 				for($i=1;$i<=$size;$i++) {
 					$result .= "<input type='radio' name='$param' id='$param' value='$i'>\n";
 				}
-				$result .= $details['right'].'&nbsp;</li></ul>';
+				$result .= "<span style='padding-left:10px'>".$details['right'].'</span></li></ul>';
 
 			}
 			elseif($details['type'] == 'radio') {
 				$result .= "<br><ul>";
 				$i = 0;
+
 				foreach($details['options'] as $option) {
-					$result .= "<li>$option<input align='left' name='$param' id='$param' type='".$details['type']."' value='".$i."'></li>\n";
+					$option2 = strtolower(str_replace(' ','_',$option));
+					$result .= "<li>$option<input align='left' name='$param' id='$param' type='".$details['type']."' value='".$option2."'></li>\n";
 					$i++;
 				}
 				$result .= '</ul></li>';
@@ -174,7 +174,8 @@ class SurveyParts {
 						$result .= "<option value=''>Select an option</option>\n";
 					}
 					else {
-						$result .= "<option value='$i'>$option</option>\n";
+						$option2 = strtolower(str_replace(' ','_',$option));
+						$result .= "<option value='$option2'>$option</option>\n";
 						$i++;
 					}
 				}

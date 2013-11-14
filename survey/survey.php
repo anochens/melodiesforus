@@ -13,10 +13,33 @@ $(document).ready(function(){
 
 	$("form#survey").validate({
 		errorPlacement: function(error, element) {
-			element.closest('fieldset > ul > li').css('color', '#AA0000');
+			if(error.html() == 'This field is required.') 
+				error.html('This question is required.');
+			
+			type = $(element[0]).attr('type');
+			if(type=='text' || !type) {
+				error.appendTo(element.parent());
+			}
+			else {
+         	error.insertAfter($('label[for="'+element.attr('id')+'"]'));
+			}
+
 			var errorMsgTop = $('.errorMsgTop');
-			errorMsgTop.html('<br><span style="color:#AA0000">Questions in red are required and have not been filled out. Please fill in these questions.</span>');
-		}
+			//errorMsgTop.html('<span style="color:#AA0000">Questions in red are required and have not been filled out. Please fill in these questions.</span>');
+		},
+		rules: {
+			safeDelivery_whatDoes: {
+				required: true,
+				minlength:20,
+				maxlength:500,
+			},
+			age: {
+				required: true,
+				digits: true,
+				minlength:2,
+				maxlength:2,
+			} 
+		},  
 	});
 
 	var val = $.cookie('hit_id');
@@ -26,6 +49,12 @@ $(document).ready(function(){
 </head>
 
 <body>
+
+
+		<style>
+		.input-block-level { clear:none; }
+		label.error { display:inline; padding-left:5px; color:red }
+		</style>     
 
 <form name='survey' id='survey' method='GET'>
 
