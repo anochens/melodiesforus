@@ -158,6 +158,26 @@ function has_consented($sid) {
 	return $data[0]['consent'] == 'yes';
 }      
 
+
+function has_finished() {
+	$db = db_connect();
+
+	$ip = get_ip();
+	$sql = "SELECT id, post_info FROM session WHERE ip = '$ip'";
+
+   $data = runQuery($db, $sql, true);
+
+   if(count($data) > 0) { //we have a session
+		$session = $data[0];
+		if($session['post_info']) {
+      	return true;
+		}
+	}
+	//maybe check here for sid if ip doesnt match
+
+	return false;
+}   
+
  
 
 function getTreatmentForSession($sid) {
