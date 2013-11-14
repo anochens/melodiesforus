@@ -32,22 +32,22 @@ class SurveyParts {
 		 'nfc5' => array('label' => 'The notion of thinking abstractly is not appealing to me.', 'type' => 'likert', 'size' => '9'),
 		));
 
-		$times = array('Daily', 'Weekly', 'Monthly', 'Rarely', 'Never');
+		$times = array('', 'Daily', 'Weekly', 'Monthly', 'Rarely', 'Never');
 
 		$shopping =  array('title'=>'Shopping questions',
 		'data'=>array(
-			'shopping_whichSong' => array('label' => 'Which song did you purchase?', 'type' => 'radio', 'options' => array('United States', 'India', 'Canada', 'None of the above')),
-			'shopping_oftenPurchase' => array('label' => 'How often do you purchase music online?', 'type' => 'radio', 'options' => $times),
+			'shopping_whichSong' => array('label' => 'Which song did you purchase?', 'type' => 'select', 'options' => array('United States', 'India', 'Canada', 'None of the above')),
+			'shopping_oftenPurchase' => array('label' => 'How often do you purchase music online?', 'type' => 'select', 'options' => $times),
 			'shopping_spendPerMonth'=> array('label'=> 'How much do you spend on average per month on music purchases?'),
-			'shopping_oftenStreaming' => array('label' => 'How often do you purchase music online?', 'type' => 'radio', 'options' => $times),
+			'shopping_oftenStreaming' => array('label' => 'How often do you stream music online?', 'type' => 'select', 'options' => $times),
 		));
 
 
 
 		$scamAvoid =  array('title'=>'Online experience questions',
 		'data'=>array(
-			'scamAvoid_creditCard' => array('label' => 'How often do you check your credit card statements?', 'type' => 'radio', 'options' => $times),
-			'scamAvoid_FinePrint' => array('label' => 'How often do you read privacy statements online?', 'type' => 'radio', 'options' => $times),
+			'scamAvoid_creditCard' => array('label' => 'How often do you check your credit card statements?', 'type' => 'select', 'options' => $times),
+			'scamAvoid_finePrint' => array('label' => 'How often do you read privacy statements online?', 'type' => 'select', 'options' => $times),
 		));
  
 		$badExp =  array('title'=>'Online experience questions',
@@ -79,7 +79,7 @@ class SurveyParts {
 
 		$safeDelivery =  array('title'=>'SafeDelivery questions',
 		'data'=>array(
-			'safeDelivery_whatDoes'=> array('label'=> 'What does the SafeDelivery service do?'),
+			'safeDelivery_whatDoes'=> array('label'=> 'What does the SafeDelivery service do?', 'type'=>'textarea'),
 			'safeDelivery_howValuable' => array('label' => 'How valuable is this service?', 'type' => 'likert', 'size' => 5, 'left'=>'Not valuable', 'right'=>'Very valuable'),
 		));                                                              
 
@@ -167,14 +167,24 @@ class SurveyParts {
 				$result .= '</ul></li>';
 			}
 			elseif($details['type'] == 'select') {
-				$result .= "<br><select id='$param'>";
+				$result .= "<select style='margin-left:5px' id='$param' name='$param'>";
 				$i = 0;
 				foreach($details['options'] as $option) {
-					$result .= "<option value='$i'>$option</option>\n";
-					$i++;
+					if($option == '') {
+						$result .= "<option value=''>Select an option</option>\n";
+					}
+					else {
+						$result .= "<option value='$i'>$option</option>\n";
+						$i++;
+					}
 				}
-				$result .= '</li>';
+
+				$result .= '</select></li>';
 			}   
+			else if($details['type'] == 'textarea'){
+				$result .= "<textarea name='$param' id='$param'>".$details['value']."</textarea>\n";
+				$result .= '</li>';
+			}  
 			else {
 				$result .= "<input name='$param' id='$param' type='".$details['type']."' value='".$details['value']."'>\n";
 				if($details['type'] != 'hidden') {

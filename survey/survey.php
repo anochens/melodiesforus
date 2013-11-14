@@ -9,7 +9,7 @@
 
 <script>
 $(document).ready(function(){
-	$('form#survey input, form textarea').not([type="submit"]).addClass('required');
+	$('form#survey input, form textarea, form select').not([type="submit"]).addClass('required');
 
 	$("form#survey").validate({
 		errorPlacement: function(error, element) {
