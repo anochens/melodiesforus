@@ -32,7 +32,58 @@ class SurveyParts {
 		 'nfc5' => array('label' => 'The notion of thinking abstractly is not appealing to me.', 'type' => 'likert', 'size' => '9'),
 		));
 
-		$this->addComponents($demo, $nfc, $integrity);
+		$times = array('Daily', 'Weekly', 'Monthly', 'Rarely', 'Never');
+
+		$shopping =  array('title'=>'Shopping questions',
+		'data'=>array(
+			'shopping_whichSong' => array('label' => 'Which song did you purchase?', 'type' => 'radio', 'options' => array('United States', 'India', 'Canada', 'None of the above')),
+			'shopping_oftenPurchase' => array('label' => 'How often do you purchase music online?', 'type' => 'radio', 'options' => $times),
+			'shopping_spendPerMonth'=> array('label'=> 'How much do you spend on average per month on music purchases?'),
+			'shopping_oftenStreaming' => array('label' => 'How often do you purchase music online?', 'type' => 'radio', 'options' => $times),
+		));
+
+
+
+		$scamAvoid =  array('title'=>'Online experience questions',
+		'data'=>array(
+			'scamAvoid_creditCard' => array('label' => 'How often do you check your credit card statements?', 'type' => 'radio', 'options' => $times),
+			'scamAvoid_FinePrint' => array('label' => 'How often do you read privacy statements online?', 'type' => 'radio', 'options' => $times),
+		));
+ 
+		$badExp =  array('title'=>'Online experience questions',
+		'data'=>array(
+			'badExp_wrongProductCount' => array('label' => 'How many times have you received the wrong product when order online?', 'type' => 'radio', 'options' => array('0','1-2','3-4','5+')),
+			'badExp_didntRemember' => array('label' => 'Have you ever received a product that you did not remember ordering?', 'type' => 'radio', 'options' => array('Yes', 'No')),
+			'badExp_beenScamTarget' => array('label' => 'Have you ever been the target of any kind of purchasing scam?', 'type' => 'radio', 'options' => array('Yes', 'No')),
+			'badExp_privacyConcern' => array('label' => 'How concerned are you about your privacy online?', 'type' => 'likert', 'left'=>'Not concerned','right'=>'Very concerned'),
+			'badExp_securityConcern' => array('label' => 'How concerned are you about your security online?', 'type' => 'likert', 'left'=>'Not concerned','right'=>'Very concerned'),
+		));
+        
+
+
+		$comfort =  array('title'=>'Personal Questions', 'pre'=>'Please indicate how much each statement below is like you.',
+		'data'=>array(
+			'comfort_safeOnline' => array('label' => 'I feel safe when I am on the Internet.', 'type' => 'likert', 'size' => 7),
+			'comfort_peaceOnline' => array('label' => 'I often find it peaceful to be online.', 'type' => 'likert', 'size' => 7),
+			'comfort_careFreeOnline' => array('label' => 'When I am online, I can be carefree.', 'type' => 'likert', 'size' => 7),
+		));                             
+
+
+
+		$impulse =  array('title'=>'Personal Questions', 'pre'=>'Please indicate how much each statement below is like you.',
+		'data'=>array(
+			'impulse_beyondControl' => array('label' => 'My use of the Internet sometimes seems beyond my control.', 'type' => 'likert', 'size' => 7),
+			'impulse_dontThinkResponOnline' => array('label' => 'When I am online, I don\'t think about my responsibilities.', 'type' => 'likert', 'size' => 7),
+			'impulse_moreCarefulOffline' => array('label' => 'I am more careful purchasing things offline than I am online.', 'type' => 'likert', 'size' => 7),
+		)); 
+
+		$safeDelivery =  array('title'=>'SafeDelivery questions',
+		'data'=>array(
+			'safeDelivery_whatDoes'=> array('label'=> 'What does the SafeDelivery service do?'),
+			'safeDelivery_howValuable' => array('label' => 'How valuable is this service?', 'type' => 'likert', 'size' => 5, 'left'=>'Not valuable', 'right'=>'Very valuable'),
+		));                                                              
+
+		$this->addComponents($demo, $scamAvoid, $badExp, $shopping, $safeDelivery, $integrity, $impulse, $comfort);
 	}
 
 	function __construct($randomizeSections = true, $firstStable = true) {
@@ -40,7 +91,11 @@ class SurveyParts {
 	
 		for($i=0;$i<count($this->sections);$i++) {
 			$sect = $this->sections[$i];
-			$this->sections[$i] = $this->getHtmlFromSurvey($sect['data'], $sect['pre'], $sect['title']); 
+			$pre = '';
+			if(array_key_exists('pre', $sect)) {
+				$pre = $sect['pre'];
+			}
+			$this->sections[$i] = $this->getHtmlFromSurvey($sect['data'], $pre, $sect['title']); 
 		}
 
 		if($randomizeSections) {
@@ -111,6 +166,15 @@ class SurveyParts {
 				}
 				$result .= '</ul></li>';
 			}
+			elseif($details['type'] == 'select') {
+				$result .= "<br><select id='$param'>";
+				$i = 0;
+				foreach($details['options'] as $option) {
+					$result .= "<option value='$i'>$option</option>\n";
+					$i++;
+				}
+				$result .= '</li>';
+			}   
 			else {
 				$result .= "<input name='$param' id='$param' type='".$details['type']."' value='".$details['value']."'>\n";
 				if($details['type'] != 'hidden') {
