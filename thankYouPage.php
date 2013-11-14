@@ -54,8 +54,7 @@ if(!array_key_exists('sid', $_COOKIE)) {
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit" style=''>
         <h2 style='text-align:center'>Thank you!</h2>
-        <p>Thank you for taking part in this task. You may now close this windows. You will be compensated according to your performance in this task. Bonuses will be paid at the conclusion of this experiment.</p>
- <!--       <p style='text-align:center'><a id='beginBtn' href="shopping.php" class="btn btn-primary btn-large">Click to Begin &raquo;</a></p> -->
+        <p>Thank you for taking part in this task. You may now close this window. Please remember to submit the HIT. You may leave comments about this task when you submit the HIT. You will receive your participation fee and your bonus payment according to your decisions in this task.</p>
       </div>
 
     </div> <!-- /container -->

@@ -71,15 +71,15 @@ function enter_new_look($data) {
    $param_hitId = '';
    $param_workerId = '';
 
-   if(array_key_exists('workerId', $data)) {
-      $param_workerId = $data['workerId'];
+   if(array_key_exists('param_workerId', $data)) {
+      $param_workerId = $data['param_workerId'];
    }
 
-   if(array_key_exists('hitId', $data)) {
-      $param_hitId = $data['hitId'];
+   if(array_key_exists('param_hitId', $data)) {
+      $param_hitId = $data['param_hitId'];
    }
 	else {
-		return;
+		return -1;
 	}
 
 	$time = '';
@@ -93,6 +93,8 @@ function enter_new_look($data) {
 
    $prep = $db->prepare($sql);
    $prep->execute(array(get_ip(),$param_hitId, $param_workerId, $time));
+
+	return $db->lastInsertId();
 }
 
 function edit_session($data, $ignoreOtherData, $prepost) {
@@ -143,6 +145,19 @@ function edit_session($data, $ignoreOtherData, $prepost) {
 
 	$prep->execute();
 }
+
+
+function has_consented($sid) {
+	$db = db_connect();
+
+	$sid = intval($sid);
+	$sql = "SELECT consent FROM session WHERE session.id = $sid";
+
+   $data = runQuery($db, $sql, true);
+	if(!$data || count($data) < 0) return false;
+	return $data[0]['consent'] == 'yes';
+}      
+
  
 
 function getTreatmentForSession($sid) {
@@ -178,3 +193,12 @@ function recordEvent($session_id, $page_name, $subject_name, $event_name, $curre
    $prep = $db->prepare($sql);
 	$prep->execute(array($session_id, $page_name, $subject_name, $event_name, $current_time)); 
 }
+
+
+function multiexplode ($delimiters,$string) {
+    
+    $ready = str_replace($delimiters, $delimiters[0], $string);
+    $launch = explode($delimiters[0], $ready);
+    return  $launch;
+}
+

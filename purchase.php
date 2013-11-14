@@ -153,7 +153,7 @@ function next(yesno) {
 		<a href='#' onclick='next("no")'>No thanks</a>
 	</td>
 
-<td rowspan="2" valign="top">
+<td valign="top">
 	<p><span style="font-size: x-small;"><strong>SafeDelivery benefit details:</strong></span></p>
 	<p>SafeDelivery is a trustworthy provider for digital communications and the delivery of digital content. This service is offered by leading online music retailers to ensure that customers get the music they want without problems. There are many benefits of using SafeDelivery.<br /> -If you lose your original copy of the song, you will always have a second copy available.<br /> -You save 50% when ordering the delivery of a copy of your song via SafeDelivery email.<br /> -We guarantee that the emailed copy is exactly similar to the initial selection.<br /> -100 Percent satisfaction guaranteed.</p>
 	<p><span style="font-size: x-small;"><strong>Offer Details:</strong></span></p>
