@@ -17,6 +17,7 @@ if(!array_key_exists('sid', $_COOKIE)) {
     <meta name="author" content="">
     <script src="./assets/js/jquery.js"></script>
     <script src="./eventRecorder.js"></script>
+	 <script type="text/javascript" src="/survey/js/jquery.validate.js"></script>
 
 	 <script>
 	 $(document).ready(function() {
@@ -147,18 +148,45 @@ if(!array_key_exists('sid', $_COOKIE)) {
 		  ?>
 		</div> <!--last song block -->
 
+		<script>
+			$(document).ready(function(){
+				$("#purchaseForm").validate({
+			/*		errorPlacement: function(error, element) {
+						element.css('color', '#AA0000');
+						var errorMsgTop = $('.errorMsgTop');
+						errorMsgTop.html('<br><span style="color:#AA0000">Please fill in all questions below.</span>');
+					},*/
+					rules: {
+						pre_email: {
+							required: true,
+							email: true
+						}
+					},
+  /* 				errorPlacement: function(error, element) {
+						error.appendTo(element.parent('p')); 
+					}
+	 */  	});
+		});
+
+		</script>
+
+		<style>
+		.input-block-level { clear:none; }
+		.error { display:inline; padding-left:5px; color:red }
+		</style>
 
       <div id='secondStage' class='row' style='display:none'>
 			<div class='span8'>
 				<div name='extraInfoContent' style='padding-left:20px;max-width:400px'> 
 					<h4 style='text-decoration:underline'>Please enter the following information to complete your purchase:</h4>
+					<div class='errorMsgTop'></div>
 
 					<form id='purchaseForm' action='purchase.php' method='POST'>
 					<div>
-						<input type='text' class='input-block-level' placeholder='Mechanical Turk ID' name='pre_mturk_id' /></td></tr>
-						<input type='text' class='input-block-level' placeholder='Age' name='pre_age' />
-						<input type='text' class='input-block-level' placeholder='Zip Code' name='pre_zip' />
-						<input type='text' class='input-block-level' placeholder='Email' name='pre_email' />
+						<input type='text' required placeholder='Mechanical Turk ID' name='pre_mturk_id' />
+						<input type='text' required placeholder='Age' name='pre_age' />
+						<input type='text' required placeholder='Zip Code' name='pre_zip' />
+						<input type='text' required placeholder='Email' name='pre_email' />
          			<input type="hidden" id='songId' name="songId" value="" />
 					</div>
 
