@@ -160,7 +160,19 @@ if(!array_key_exists('sid', $_COOKIE)) {
 						pre_email: {
 							required: true,
 							email: true
-						}
+						},
+						pre_age: {
+							required: true,
+							digits: true,
+							minlength:2,
+						  	maxlength:2,
+						},
+						pre_zip: {
+							required: true,
+							digits: true,
+							minlength:5,
+							maxlength:5,
+						} 
 					},
   /* 				errorPlacement: function(error, element) {
 						error.appendTo(element.parent('p')); 
@@ -177,16 +189,20 @@ if(!array_key_exists('sid', $_COOKIE)) {
 
       <div id='secondStage' class='row' style='display:none'>
 			<div class='span8'>
-				<div name='extraInfoContent' style='padding-left:20px;max-width:400px'> 
+				<div name='extraInfoContent' style='padding-left:20px;max-width:600px'> 
 					<h4 style='text-decoration:underline'>Please enter the following information to complete your purchase:</h4>
 					<div class='errorMsgTop'></div>
 
 					<form id='purchaseForm' action='purchase.php' method='POST'>
 					<div>
 						<input type='text' required placeholder='Mechanical Turk ID' name='pre_mturk_id' />
+						<br/>
 						<input type='text' required placeholder='Age' name='pre_age' />
+						<br/>
 						<input type='text' required placeholder='Zip Code' name='pre_zip' />
+						<br/>
 						<input type='text' required placeholder='Email' name='pre_email' />
+						<br/>
          			<input type="hidden" id='songId' name="songId" value="" />
 					</div>
 
