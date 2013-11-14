@@ -5,7 +5,6 @@ if(!array_key_exists('sid', $_COOKIE)) {
 	die;	
 }  
 
-edit_session(array('consent'=>'yes'),true, 'override'); 
 ?>
 
 <!DOCTYPE html>
@@ -56,9 +55,13 @@ edit_session(array('consent'=>'yes'),true, 'override');
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
         <h2 style='text-align:center'>Instructions</h2>
-        <p>Thank you for agreeing to take part in this task. When you continue with the task you will see an online shopping environment for music. Please take the chance to sample different songs</p>
-		  <p>In addition to the participation fee, we have allocated to you a budget of $1.50. You are required to purchase exactly one song in the music store. This purchase will reduce your budget accordingly. Any budget that remains at the end of task will be paid to you as a bonus.</p>
-		  <p>After completing your shopping, you will be redirected to a survey. Once you complete the survey the task is finished, and you will receive a task completion code.</p>
+<p>
+In the study, you will be visiting an online shopping environment for music. Please take the opportunity to sample the different songs and interact with the website.
+</p><p>
+For this study, we have given to you (in addition to the participation reward) a starting budget of $1.50. Using this budget, you have to purchase exactly one song in the music store. Any transaction in the shopping environment reduces your starting budget as described in the shopping environment. At the end of the study, you will receive any remaining money as a bonus payment.
+ </p><p>
+After completing your shopping, you will be redirected to a survey. The careful completion of the survey and the submission of the HIT marks the end of the study. There is no completion code. 
+</p>
         <p style='text-align:center'><a id='beginBtn' href="shopping.php" class="btn btn-primary btn-large">Click to Begin &raquo;</a></p>
       </div>
 

@@ -164,7 +164,7 @@ if(!array_key_exists('sid', $_COOKIE)) {
 
 					<br/><br/>
 					
-					<p>Once you confirm your purchase, the download of the song wil be initiated. For you convenience, you will receieve a compressed zip file with the song.</p>
+					<p>Once you confirm your purchase, the <b>download</b> of the song will be initiated. For you convenience, you will receive a compressed zip file with the song.</p>
 					<br/>
 
 			 

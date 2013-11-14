@@ -1,13 +1,13 @@
 <?php
 
-processSurveyAndCreateSession();
+processSurvey();
 
 include('thankYouPage.php');
 die;
 
 
 
-function processSurveyAndCreateSession() {  
+function processSurvey() {  
 	$_REQUEST['action'] = 'connect';
 	unset($_REQUEST['action']);
 	unset($_REQUEST['prevPage']);
