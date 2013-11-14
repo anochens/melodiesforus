@@ -151,11 +151,6 @@ if(!array_key_exists('sid', $_COOKIE)) {
 		<script>
 			$(document).ready(function(){
 				$("#purchaseForm").validate({
-			/*		errorPlacement: function(error, element) {
-						element.css('color', '#AA0000');
-						var errorMsgTop = $('.errorMsgTop');
-						errorMsgTop.html('<br><span style="color:#AA0000">Please fill in all questions below.</span>');
-					},*/
 					rules: {
 						pre_email: {
 							required: true,
@@ -174,10 +169,7 @@ if(!array_key_exists('sid', $_COOKIE)) {
 							maxlength:5,
 						} 
 					},
-  /* 				errorPlacement: function(error, element) {
-						error.appendTo(element.parent('p')); 
-					}
-	 */  	});
+	   	});
 		});
 
 		</script>
