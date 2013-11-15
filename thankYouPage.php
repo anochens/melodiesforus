@@ -1,9 +1,5 @@
 <?php
-
-if(!array_key_exists('sid', $_COOKIE)) {
-	header('Location: index.php');
-	die;	
-}  
+include_once('redirector.php');
 ?>
 
 <!DOCTYPE html>

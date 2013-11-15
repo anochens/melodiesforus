@@ -1,17 +1,21 @@
 <?php                        
 
+include_once('functions.php');
 
-if(!array_key_exists('sid', $_COOKIE) || !array_key_exists('pre_email', $_REQUEST)) {
-	header('Location: index.php');
-	die;	
-}
-include('functions.php');
-
-$email = htmlentities($_REQUEST['pre_email'], ENT_QUOTES);
-$mturk_id = htmlentities($_REQUEST['pre_mturk_id'], ENT_QUOTES);
 $sid = intval($_COOKIE['sid']);
-$age = intval($_REQUEST['pre_age']);
-$zip = ''.intval($_REQUEST['pre_zip']);
+
+if(array_key_exists('pre_email', $_REQUEST)) {
+	$email = htmlentities($_REQUEST['pre_email'], ENT_QUOTES);
+	$mturk_id = htmlentities($_REQUEST['pre_mturk_id'], ENT_QUOTES);
+	$age = intval($_REQUEST['pre_age']);
+	$zip = ''.intval($_REQUEST['pre_zip']);
+	edit_session(array('pre_email'=>$email, 'sid'=>$sid, 'pre_zip'=>$zip, 'pre_mturk_id'=>$mturk_id,'pre_age'=>$age, 'songId'=>intval($_REQUEST['songId'])), false, 'pre');
+
+}
+else {
+	$email = get_pre_email($sid);
+}
+include_once('redirector.php');
 
 $treatment = getTreatmentForSession($sid);
 
@@ -19,7 +23,7 @@ $box_value = '';
 $prepop = $treatment['pre-pop'];
 $opt = $treatment['opt'];
 if(substr($prepop, 0, 3) == 'yes'){
-	$box_value = htmlentities($_REQUEST['pre_email'], ENT_QUOTES);
+	$box_value = htmlentities($email, ENT_QUOTES);
 }
 
 $box_display = 'block';
@@ -29,7 +33,6 @@ if($prepop == 'yes-hidden') {
 	$box_hidden = true;
 }
 
-edit_session(array('pre_email'=>$email, 'sid'=>$sid, 'pre_zip'=>$zip, 'pre_mturk_id'=>$mturk_id,'pre_age'=>$age), false, 'pre')
 
 ?>      
 

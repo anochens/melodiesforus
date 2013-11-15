@@ -1,11 +1,5 @@
-
 <?php
 include_once('functions.php');
-
-if(array_key_exists('sid', $_COOKIE) && has_consented($_COOKIE['sid'])) {
-	header("Location: index.php?".$_SERVER['QUERY_STRING']);
-	die;
-}
 
 if(!array_key_exists('sid', $_COOKIE)) {
 	$hitId = '';
@@ -31,6 +25,9 @@ if(!array_key_exists('sid', $_COOKIE)) {
 		die("This page can only be accessed through the Mechanical Turk HIT. Please accept the task and click the link to this page from there.");
 	}
 }
+
+include_once('redirector.php');
+
 ?>     
 
 <script src="//code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>

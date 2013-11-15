@@ -159,7 +159,41 @@ function has_consented($sid) {
 }      
 
 
-function has_finished() {
+function get_pre_email($sid) {
+	$db = db_connect();
+
+	$sid = intval($sid);
+	$sql = "SELECT pre_email FROM session WHERE session.id = $sid";
+
+   $data = runQuery($db, $sql, true);
+	if(!$data || count($data) < 0) return false;
+	return $data[0]['pre_email'];
+}                                         
+
+function has_seen_negative_option($sid) {
+	$db = db_connect();
+
+	$sid = intval($sid);
+	$sql = "SELECT email_sent FROM session WHERE session.id = $sid";
+
+   $data = runQuery($db, $sql, true);
+	if(!$data || count($data) < 0) return false;
+	return $data[0]['email_sent'] != 'undef';
+}         
+
+function has_done_presurvey($sid) {
+	$db = db_connect();
+
+	$sid = intval($sid);
+	$sql = "SELECT pre_email FROM session WHERE session.id = $sid";
+
+   $data = runQuery($db, $sql, true);
+	if(!$data || count($data) < 0) return false;
+	return $data[0]['pre_email'] != '';
+}      
+ 
+
+function has_finished($sid) {
 	$db = db_connect();
 
 	$ip = get_ip();
@@ -170,9 +204,24 @@ function has_finished() {
    if(count($data) > 0) { //we have a session
 		$session = $data[0];
 		if($session['post_info']) {
+			//die('finished by ip');
       	return true;
 		}
 	}
+
+	$sql = "SELECT id, post_info FROM session WHERE id = '$sid'";
+
+   $data = runQuery($db, $sql, true);
+
+   if(count($data) > 0) { //we have a session
+		$session = $data[0];
+		if($session['post_info']) {
+			//die('finished by sid');
+      	return true;
+		}
+	}
+
+
 	//maybe check here for sid if ip doesnt match
 
 	return false;
