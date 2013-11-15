@@ -1,18 +1,13 @@
 <?php
 
-if(!array_key_exists('sid', $_COOKIE)) {
-	header('Location: index.php');
-	die;	
-}
-include('functions.php');
-
-
-
 if(array_key_exists('prevPage', $_REQUEST) && $_REQUEST['prevPage'] == 'survey') {
 	include('endPage.php');
 	die;
 
 }
+include_once('redirector.php');
+
+$sid = intval($_COOKIE['sid']);
 
 
 $email_sent = false;
@@ -25,12 +20,11 @@ if(array_key_exists('sendEmail', $_GET)) {
 		include('mailer.php');
 	}
 }
+if(array_key_exists('pre_email', $_REQUEST)) {
+	$email = htmlentities($_REQUEST['post_email'], ENT_QUOTES);
 
-
-$email = htmlentities($_REQUEST['post_email'], ENT_QUOTES);
-$sid = intval($_COOKIE['sid']);
-
-edit_session(array('post_email'=>$email, 'sid'=>$sid, 'email_sent'=>var_export($email_sent, true)), true, 'post')
+	edit_session(array('post_email'=>$email, 'sid'=>$sid, 'email_sent'=>var_export($email_sent, true)), true, 'post');
+}
                                   
 ?>
 
