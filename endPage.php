@@ -15,8 +15,8 @@ function processSurvey() {
 		 
 	integrityCheck();
 
-	collapseScale('rps', 9);
-	collapseScale('nfc', 9);
+	//collapseScale('rps', 9);
+	//collapseScale('nfc', 9);
 	ksort($_REQUEST);
 	
 	edit_session($_REQUEST, false, 'post');
