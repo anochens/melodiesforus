@@ -39,6 +39,7 @@ else {
 			}
 			else {
 
+
 				if(!has_seen_negative_option($sid)) { //pre survey done
 					redir('purchase.php', true);
 					//go to negative options page

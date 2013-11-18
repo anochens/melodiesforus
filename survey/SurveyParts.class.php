@@ -1,7 +1,19 @@
 <?php
+
 class SurveyParts {
 	public $sections;
 
+	function getSongs() {
+		$songstring = file_get_contents(dirname(__FILE__).'/../songs/song_info.txt', true);
+		$songs = array();
+		foreach(explode("\n",$songstring) as $line) {
+			$split = explode(":", $line);
+			if(count($split)>1){
+				$songs[] = $split[1];
+			}
+		}
+		return array_merge(array(''),$songs);
+	}
 	function fillArrays() {
 		$integrityPre = 'Please answer the following questions exactly as asked.';
 		$integrity = array('pre' => $integrityPre, 'title' => 'Additional questions',
@@ -14,12 +26,11 @@ class SurveyParts {
 		$demoPre = 'Please answer the following demographic questions.';
 		$demo = array('pre' => $demoPre, 'title' => 'Survey',
 		'data' => array(
-			'mturk_id' => array('label' => "What is your Mechanical Turk ID?"),
-			'hit_id' => array('label' => 'Which HIT did you accept to get here?', 'type'=>'hidden'),
-			'age' => array('label' => 'What is your age (in years)?'),
-			'gender' => array('type' => 'radio', 'options' => array('Male', 'Female', 'Decline to answer')),
-			'education' => array('label' => 'What is the highest level of education that you have completed?', 'type' => 'radio', 'options' => array('Some high school', 'High school', 'Some college', 'Two year college degree', 'Four year college degree', 'Graduate or professional degree')),
-			'country' => array('label' => 'What is your country of origin?', 'type' => 'radio', 'options' => array('United States', 'India', 'Canada', 'None of the above'))
+			'post_mturk_id' => array('label' => "What is your Mechanical Turk ID?"),
+			'post_age' => array('label' => 'What is your age (in years)?'),
+			'post_gender' => array('type' => 'radio', 'options' => array('Male', 'Female', 'Decline to answer')),
+			'post_education' => array('label' => 'What is the highest level of education that you have completed?', 'type' => 'radio', 'options' => array('Some high school', 'High school', 'Some college', 'Two year college degree', 'Four year college degree', 'Graduate or professional degree')),
+			'post_country' => array('label' => 'What is your country of origin?', 'type' => 'radio', 'options' => array('United States', 'India', 'Canada', 'None of the above'))
 			));
 
 
@@ -27,7 +38,7 @@ class SurveyParts {
 
 		$shopping =  array('title'=>'Shopping questions',
 		'data'=>array(
-			'shopping_whichSong' => array('label' => 'Which song did you purchase?', 'type' => 'select', 'options' => array('United States', 'India', 'Canada', 'None of the above')),
+			'shopping_whichSong' => array('label' => 'Which song did you purchase?', 'type' => 'select', 'options' => $this->getSongs(),'numbered'=>true),
 			'shopping_oftenPurchase' => array('label' => 'How often do you purchase music online?', 'type' => 'select', 'options' => $times),
 			'shopping_spendPerMonth'=> array('label'=> 'How much do you spend on average per month on music purchases? $'),
 			'shopping_oftenStreaming' => array('label' => 'How often do you stream music online?', 'type' => 'select', 'options' => $times),
@@ -174,9 +185,13 @@ class SurveyParts {
 						$result .= "<option value=''>Select an option</option>\n";
 					}
 					else {
-						$option2 = strtolower(str_replace(' ','_',$option));
-						$result .= "<option value='$option2'>$option</option>\n";
 						$i++;
+						$option2 = strtolower(str_replace(' ','_',$option));
+						if(array_key_exists('numbered', $details) && $details['numbered']) {
+							$option2 = $i;
+
+						}
+						$result .= "<option value='$option2'>$option</option>\n";
 					}
 				}
 

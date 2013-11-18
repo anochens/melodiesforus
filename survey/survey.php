@@ -42,8 +42,6 @@ $(document).ready(function(){
 		},  
 	});
 
-	var val = $.cookie('hit_id');
-	$('#hit_id').val(val);
 });
 </script>               
 </head>
