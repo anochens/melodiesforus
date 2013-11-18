@@ -1,9 +1,9 @@
 <?php
 
 $id = intval($_REQUEST['songId']);
-$filename = '/songs/song'.$id.'.zip';
+$filename = "/songs/$id.zip";
 
-$filename = "song$id.zip";
+$filename = "$id.zip";
 $filepath = "/var/www/html/songs/";
 
 header("Pragma: public");

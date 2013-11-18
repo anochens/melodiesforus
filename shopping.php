@@ -19,7 +19,7 @@
 	 <script>
 	 $(document).ready(function() {
 		 $('.addToCart').click(function(e) {
-			 var song = $(this).closest("div").find(".hiddenSongArtist").text();
+			 var song = $(this).closest("div").find(".hiddenSongArtist").html();
 			 var songId = $(this).closest("div").find(".hiddenSongId").text();
 			 $('#cart').html(song+": $0.99");
 			 $('#songId').val(songId);
@@ -91,13 +91,17 @@
 		<?php
 
       $songstring = file_get_contents('songs/song_info.txt', true);
+		$genres = array();
+		$songs = array();
+		$artists = array();
 		$song_artists = array();
       foreach(explode("\n",$songstring) as $line) {
 			$split = explode(":", $line);
-			$genre = $split[0];
+			$genres[] = $split[0];
          if(count($split)>1){
 				$song_artist = explode(" by ",trim($split[1]));
-				$song_artists[] = $song_artist;
+				$songs[] = $song_artist[0];
+				$artists[] = $song_artist[1];
 			}
 		}
 
@@ -114,14 +118,19 @@
 			 	echo "</div><div class='row'>";   
 			 }
 
+			 $j=$i-1;
+
 			  ?>
 		  
 		  
-		  <div class="span4" style='padding-bottom:10px;padding-left:5px;'>
-          <h3 style='margin-top:-5px;margin-bottom:-10px'><?php echo $song_artists[$i-1][0]; ?></h3>
-			 	<h4 style='margin-bottom:-60px'><i>by <?php echo $song_artists[$i-1][1]; ?></i></h4>
-				<h6 style='visibility:hidden' class='hiddenSongArtist'><?php echo implode(' by ',$song_artists[$i-1]); ?></h6>
-				<h6 style='visibility:hidden' class='hiddenSongId'><?php echo $i; ?></h6>
+		  <div class="span4" style='padding-top:5px;padding-bottom:10px;padding-left:5px;'>
+          <h3 style='margin-top:-13px;'><?php echo $songs[$j]; ?></h3>
+			 <h4 style='margin-top:-8px;'><i> by <?php echo $artists[$j]; ?></i>
+			   <span style='font-size:12px'>(<?php echo $genres[$j]; ?>)</span>
+				</h4>
+
+				<h6 style='display:none;' class='hiddenSongArtist'><?php echo $songs[$j]."<br> by ".$artists[$j]; ?></h6>
+				<h6 style='display:none' class='hiddenSongId'><?php echo $i; ?></h6>
 					<div>
 						<?php echo "<img style='float:left' src='./songs/song$i"."_cover.jpg' width=100 height=100 />";  ?>
 					</div>
@@ -130,7 +139,7 @@
 					
 					<param name="movie" value="dewplayer-mini.swf" />
 					<?php
-						echo "<param name='flashvars' value='mp3=songs/song".$i.".mp3' />";
+						echo "<param name='flashvars' value='mp3=songs/".$i.".mp3' />";
 					?>
 					<param name="wmode" value="transparent" />
 					</object>

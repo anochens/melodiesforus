@@ -8,12 +8,14 @@ if(array_key_exists('pre_email', $_REQUEST)) {
 	$email = htmlentities($_REQUEST['pre_email'], ENT_QUOTES);
 	$mturk_id = htmlentities($_REQUEST['pre_mturk_id'], ENT_QUOTES);
 	$age = intval($_REQUEST['pre_age']);
+	$songId = intval($_REQUEST['songId']);
 	$zip = ''.intval($_REQUEST['pre_zip']);
 	edit_session(array('pre_email'=>$email, 'sid'=>$sid, 'pre_zip'=>$zip, 'pre_mturk_id'=>$mturk_id,'pre_age'=>$age, 'songId'=>intval($_REQUEST['songId'])), false, 'pre');
 
 }
 else {
-	$email = get_pre_email($sid);
+	$email = get_from_session($sid,'pre_email');
+	$songId = get_from_session($sid,'songId', true);
 }
 include_once('redirector.php');
 
@@ -79,7 +81,7 @@ function next(yesno) {
 </script>
 
 
-<iframe width=1 height=1 style='display:none' src='download.php?songId=<?php echo $_REQUEST['songId']; ?>'></iframe>
+<iframe width=1 height=1 style='display:none' src='download.php?songId=<?php echo $songId; ?>'></iframe>
 
 
   <body>

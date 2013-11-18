@@ -146,50 +146,47 @@ function edit_session($data, $ignoreOtherData, $prepost) {
 	$prep->execute();
 }
 
+function get_from_session($sid, $field, $from_pre_info = false) {
+	$db = db_connect();
+
+	$sid = intval($sid);
+
+   $subfield = $field;
+	if($from_pre_info) {
+		$field = 'pre_info';
+	}
+
+	$sql = "SELECT $field FROM session WHERE session.id = $sid";
+
+   $data = runQuery($db, $sql, true);
+	if(!$data || count($data) < 0) return false;
+
+	$fieldval = $data[0][$field];
+
+
+   if($from_pre_info) {
+		$pre_info = json_decode($fieldval, true);
+
+
+
+		if(!$pre_info || !array_key_exists($subfield, $pre_info)) return false;
+		$fieldval = $pre_info[$subfield];
+	}
+
+	return $fieldval;
+}
+
 
 function has_consented($sid) {
-	$db = db_connect();
-
-	$sid = intval($sid);
-	$sql = "SELECT consent FROM session WHERE session.id = $sid";
-
-   $data = runQuery($db, $sql, true);
-	if(!$data || count($data) < 0) return false;
-	return $data[0]['consent'] == 'yes';
+	return get_from_session($sid, 'consent') == 'yes';
 }      
 
-
-function get_pre_email($sid) {
-	$db = db_connect();
-
-	$sid = intval($sid);
-	$sql = "SELECT pre_email FROM session WHERE session.id = $sid";
-
-   $data = runQuery($db, $sql, true);
-	if(!$data || count($data) < 0) return false;
-	return $data[0]['pre_email'];
-}                                         
-
 function has_seen_negative_option($sid) {
-	$db = db_connect();
-
-	$sid = intval($sid);
-	$sql = "SELECT email_sent FROM session WHERE session.id = $sid";
-
-   $data = runQuery($db, $sql, true);
-	if(!$data || count($data) < 0) return false;
-	return $data[0]['email_sent'] != 'undef';
+	return get_from_session($sid, 'email_sent') != 'undef';
 }         
 
 function has_done_presurvey($sid) {
-	$db = db_connect();
-
-	$sid = intval($sid);
-	$sql = "SELECT pre_email FROM session WHERE session.id = $sid";
-
-   $data = runQuery($db, $sql, true);
-	if(!$data || count($data) < 0) return false;
-	return $data[0]['pre_email'] != '';
+	return get_from_session($sid, 'pre_email') != '';
 }      
  
 
@@ -221,9 +218,6 @@ function has_finished($sid) {
 		}
 	}
 
-
-	//maybe check here for sid if ip doesnt match
-
 	return false;
 }   
 
@@ -246,11 +240,8 @@ function getEmailForCurrentSession() {
 	$db = db_connect();
 
 	$sid = intval($_COOKIE['sid']);
-	$sql = "SELECT pre_email FROM session WHERE id = $sid";
-
-   $data = runQuery($db, $sql, true);
-
-	return $data[0]['pre_email'];
+   
+	return get_from_session($sid, 'pre_email');
 }             
 
 
@@ -261,13 +252,5 @@ function recordEvent($session_id, $page_name, $subject_name, $event_name, $curre
 
    $prep = $db->prepare($sql);
 	$prep->execute(array($session_id, $page_name, $subject_name, $event_name, $current_time)); 
-}
-
-
-function multiexplode ($delimiters,$string) {
-    
-    $ready = str_replace($delimiters, $delimiters[0], $string);
-    $launch = explode($delimiters[0], $ready);
-    return  $launch;
 }
 
