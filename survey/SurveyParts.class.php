@@ -28,7 +28,7 @@ class SurveyParts {
 		'data' => array(
 			'post_mturk_id' => array('label' => "What is your Mechanical Turk ID?"),
 			'post_age' => array('label' => 'What is your age (in years)?'),
-			'post_gender' => array('type' => 'radio', 'options' => array('Male', 'Female', 'Decline to answer')),
+			'post_gender' => array('label' => 'What is your gender?', 'type' => 'radio', 'options' => array('Male', 'Female', 'Decline to answer')),
 			'post_education' => array('label' => 'What is the highest level of education that you have completed?', 'type' => 'radio', 'options' => array('Some high school', 'High school', 'Some college', 'Two year college degree', 'Four year college degree', 'Graduate or professional degree')),
 			'post_country' => array('label' => 'What is your country of origin?', 'type' => 'radio', 'options' => array('United States', 'India', 'Canada', 'None of the above'))
 			));
