@@ -1,7 +1,7 @@
 <?php
 include_once('functions.php');
 
-if(!array_key_exists('sid', $_COOKIE)) {
+if(!curr_session_is_valid()) {
 	$hitId = '';
 	$workerId = '';
 	if(array_key_exists('hitId', $_REQUEST)) {
