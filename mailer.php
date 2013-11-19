@@ -17,7 +17,7 @@ $subject = 'SafeDelivery: Your song';
 $headers = "From: admin@safedelivery.com\r\nReply-To: noreply@safedelivery.com"; 
 $headers .= "\r\nContent-Type: multipart/mixed; boundary=\"PHP-mixed-".$random_hash."\""; 
 
-$attachment = chunk_split(base64_encode(file_get_contents('songs/song1.zip'))); 
+$attachment = chunk_split(base64_encode(file_get_contents("songs/$songId.zip"))); 
 
 ob_start();
 ?> 

@@ -63,17 +63,12 @@ class SurveyParts {
         
 
 
-		$comfort =  array('title'=>'Personal Questions', 'pre'=>'Please indicate how much each statement below is like you.',
+		$comfort_impulse =  array('title'=>'Personal Questions', 'pre'=>'Please indicate how much you agree with each of the statements below.',
 		'data'=>array(
 			'comfort_safeOnline' => array('label' => 'I feel safe when I am on the Internet.', 'type' => 'likert', 'size' => 7),
 			'comfort_peaceOnline' => array('label' => 'I often find it peaceful to be online.', 'type' => 'likert', 'size' => 7),
 			'comfort_careFreeOnline' => array('label' => 'When I am online, I can be carefree.', 'type' => 'likert', 'size' => 7),
-		));                             
 
-
-
-		$impulse =  array('title'=>'Personal Questions', 'pre'=>'Please indicate how much each statement below is like you.',
-		'data'=>array(
 			'impulse_beyondControl' => array('label' => 'My use of the Internet sometimes seems beyond my control.', 'type' => 'likert', 'size' => 7),
 			'impulse_dontThinkResponOnline' => array('label' => 'When I am online, I don\'t think about my responsibilities.', 'type' => 'likert', 'size' => 7),
 			'impulse_moreCarefulOffline' => array('label' => 'I am more careful purchasing things offline than I am online.', 'type' => 'likert', 'size' => 7),
@@ -82,7 +77,11 @@ class SurveyParts {
 		$safeDelivery =  array('title'=>'SafeDelivery questions',
 		'data'=>array(
 			'safeDelivery_whatDoes'=> array('label'=> 'What does the SafeDelivery service do?', 'type'=>'textarea'),
-			'safeDelivery_howValuable' => array('label' => 'How valuable is this service?', 'type' => 'likert', 'size' => 5, 'left'=>'Not valuable', 'right'=>'Very valuable'),
+			'safeDelivery_didYouSubscribe' => array('label' => 'Did you purchase the SafeDelivery service?', 'type' => 'select', 'options' => array('','Yes','No','I don\'t know')),
+
+			'safeDelivery_howValuableService' => array('label' => 'How valuable is the SafeDelivery service to you?', 'type' => 'likert', 'size' => 5, 'left'=>'Not valuable', 'right'=>'Very valuable'),
+			'safeDelivery_howValuableDiscount' => array('label' => 'How valuable is the discount offered by the SafeDelivery service to you?', 'type' => 'likert', 'size' => 5, 'left'=>'Not valuable', 'right'=>'Very valuable'),
+			'safeDelivery_relationship' => array('label' => 'What is the relationship between MelodiesFor.us and SafeDelivery?', 'type' => 'radio', 'options' => array('MelodiesFor.us and SafeDelivery are the same site.','MelodiesFor.us and SaeDelivery are partners.','MelodiesFor.us and SafeDelivery are unrelated.','I do not know what the relationship between MelodiesFor.us and SafeDelivery is.')),
 		));                                                              
 
 		$this->addComponents($demo);
@@ -90,8 +89,7 @@ class SurveyParts {
 		$this->addComponents($safeDelivery);
 		$this->addComponents($badExp);
 		$this->addComponents($scamAvoid);
-		$this->addComponents($comfort);
-		$this->addComponents($impulse);
+		$this->addComponents($comfort_impulse);
 		$this->addComponents($integrity);
 	}
 

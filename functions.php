@@ -146,6 +146,28 @@ function edit_session($data, $ignoreOtherData, $prepost) {
 	$prep->execute();
 }
 
+function recordCheater($sid, $new_sendEmail) {
+	$sendEmail = get_from_session($sid, 'email_sent');
+
+	if(substr_count($sendEmail, '|') > 0) {
+		$sendEmail = explode('|', $sendEmail);
+		$sendEmail = $sendEmail[0];
+	}
+
+	$new_sendEmail = ($new_sendEmail == $sendEmail) ? 'SAME':'DIFF';
+	$sendEmail = $sendEmail . '|' . $new_sendEmail;
+
+	$db = db_connect();
+	$sql = "UPDATE session SET email_sent='$sendEmail' WHERE id=:sid";
+
+   $prep = $db->prepare($sql);
+
+	$prep->bindParam(':sid', $sid);
+
+	$prep->execute();
+ 
+}
+
 function get_from_session($sid, $field, $from_pre_info = false) {
 	$db = db_connect();
 
@@ -161,13 +183,12 @@ function get_from_session($sid, $field, $from_pre_info = false) {
    $data = runQuery($db, $sql, true);
 	if(!$data || count($data) < 0) return false;
 
+
 	$fieldval = $data[0][$field];
 
 
    if($from_pre_info) {
 		$pre_info = json_decode($fieldval, true);
-
-
 
 		if(!$pre_info || !array_key_exists($subfield, $pre_info)) return false;
 		$fieldval = $pre_info[$subfield];
@@ -188,7 +209,6 @@ function has_seen_negative_option($sid) {
 function has_done_presurvey($sid) {
 	return get_from_session($sid, 'pre_email') != 'undef';
 }      
- 
 
 function has_finished($sid) {
 	$db = db_connect();
@@ -201,7 +221,6 @@ function has_finished($sid) {
    if(count($data) > 0) { //we have a session
 		$session = $data[0];
 		if($session['post_info']) {
-			//die('finished by ip');
       	return true;
 		}
 	}
@@ -213,7 +232,6 @@ function has_finished($sid) {
    if(count($data) > 0) { //we have a session
 		$session = $data[0];
 		if($session['post_info']) {
-			//die('finished by sid');
       	return true;
 		}
 	}

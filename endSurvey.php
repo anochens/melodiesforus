@@ -17,14 +17,25 @@ if(array_key_exists('sendEmail', $_GET)) {
 	if($_REQUEST['sendEmail'] != 'false') {
 		$to = getEmailForCurrentSession();
 		$email_sent = true;
+		$songId = get_from_session($sid, 'songId', true);
 
-		include('mailer.php');
+		if(1) {//!has_seen_negative_option($sid)) { 
+			include('mailer.php');
+		}
 	}
 }
 if(array_key_exists('post_email', $_REQUEST)) {
 	$email = htmlentities($_REQUEST['post_email'], ENT_QUOTES);
 
-	edit_session(array('post_email'=>$email, 'sid'=>$sid, 'email_sent'=>var_export($email_sent, true)), true, 'post');
+
+
+
+   if(!has_seen_negative_option($sid)) { //first time submitting
+		edit_session(array('post_email'=>$email, 'sid'=>$sid, 'email_sent'=>var_export($email_sent, true)), true, 'post');
+	}
+	else {  //record attempt to change 
+		recordCheater($sid, $email_sent ? "true":"false");
+	}
 }          
 
 include_once('redirector.php');
