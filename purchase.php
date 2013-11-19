@@ -151,7 +151,7 @@ function next(yesno) {
       	$button_text = 'Remove me from SafeDelivery';
 		}
 
-		echo "<a href='#' class='btn btn-large' style='font-family:times;width:85%' onclick='next(\"yes\")'>$button_text</a>";
+		echo "<a href='#' class='btn btn-large' style='font-family:times;width:75%' onclick='next(\"yes\")'>$button_text</a>";
 
 		?>
 		<br/><br/>
