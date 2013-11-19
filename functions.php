@@ -283,7 +283,7 @@ function getEmailForCurrentSession() {
 
 	$sid = intval($_COOKIE['sid']);
    
-	return get_from_session($sid, 'pre_email');
+	return get_from_session($sid, 'post_email');
 }             
 
 
