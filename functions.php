@@ -235,6 +235,30 @@ function getTreatmentForSession($sid) {
 	return $treatment;
 }
 
+function curr_session_is_valid() {
+	if(!array_key_exists('sid', $_COOKIE)) return false;
+	$db = db_connect();
+
+	$sid = intval($_COOKIE['sid']);
+
+	$sql = "SELECT count(*) as num from session where session.id=$sid";
+   $data= runQuery($db, $sql, true);
+
+	$count = $data[0]['num'];
+
+	if($count == 0) {
+		setcookie('sid', $sid, time()-1000, '/');
+		unset($_COOKIE['sid']);
+		return false;
+	}
+
+	if($count > 1) die('error');
+
+	return true;
+
+
+}
+
 function getEmailForCurrentSession() {
 	if(!array_key_exists('sid', $_COOKIE)) return 'NO SESSION';
 	$db = db_connect();
