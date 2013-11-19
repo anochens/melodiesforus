@@ -186,7 +186,7 @@ function has_seen_negative_option($sid) {
 }         
 
 function has_done_presurvey($sid) {
-	return get_from_session($sid, 'pre_email') != '';
+	return get_from_session($sid, 'pre_email') != 'undef';
 }      
  
 
