@@ -30,14 +30,11 @@ function get_entry_data($db) {
    	print $e->getMessage();
 	}
  	
-	//write the headers
-	
 	$headers = array();
 	$headersSet = false;
 
 	$ignore = array('sid','mturk_id','pre_email','pre_mturk_id');
 
-	//now write to the csv
 	for($i=0;$i<count($data);$i++) {
 		$row2 = array();
 		$row3 = array();
@@ -51,6 +48,18 @@ function get_entry_data($db) {
 				$data[$i]['bonus'] = 0.01;
 			}
 		}
+
+      $data[$i]['email_matches_pre_post'] = 'undef';
+		if($data[$i]['pre_email'] == $data[$i]['post_email'] &&
+			$data[$i]['post_email'] != 'undef'  &&
+			$data[$i]['post_email'] != '') {
+
+			$data[$i]['email_matches_pre_post'] = 'true';
+		}
+		else {
+			$data[$i]['email_matches_pre_post'] = 'false';
+		}
+
 
 		foreach($data[$i] as $k=>$v) {
 			
