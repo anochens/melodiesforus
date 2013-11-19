@@ -114,10 +114,10 @@ function next(yesno) {
 </tr>
 </table>
 
-<table style="width: 1040px; height: 351px;border: 3px solid black">
+<table style="width: 1040px; height: 351px;">
 
 <tr>
-	<td style="width: 200px;" valign="top">
+	<td style="width: 200px;border:solid 3px black" valign="top">
 	<?php 
 		$start_text = 'Entering your email address ';
 
@@ -157,8 +157,8 @@ function next(yesno) {
 		<br/><br/>
 		<a href='#' onclick='next("no")'>No thanks</a>
 	</td>
-
-<td valign="top">
+<td></td>
+<td valign="top" style='border:solid 3px black;'>
 	<p><span style="font-size: x-small;"><strong>SafeDelivery benefit details:</strong></span></p>
 	<p>SafeDelivery is a trustworthy provider for digital communications and the delivery of digital content. This service is offered by leading online music retailers to ensure that customers get the music they want without problems. There are many benefits of using SafeDelivery.<br /> -If you lose your original copy of the song, you will always have a second copy available.<br /> -You save 50% when ordering the delivery of a copy of your song via SafeDelivery email.<br /> -We guarantee that the emailed copy is exactly similar to the initial selection.<br /> -100 Percent satisfaction guaranteed.</p>
 	<p><span style="font-size: x-small;"><strong>Offer Details:</strong></span></p>
@@ -173,7 +173,7 @@ function next(yesno) {
       	$pre_text = 'You have been subscribed to the SafeDelivery service.';
 			$button_text = 'No thanks';
 		}
-		echo "<p>".$pre_text."Simply ".$start_text."click \"$button_text\" to use our services and to take advantage of the great value that SafeDelivery provides. By clicking \"$button_text\" you will receive a safe email copy of the identical song you selected in the MelodiesFor.us store for just $0.50. This is a 50% DISCOUNT for the additional copy. You will SAVE an incredible $0.50 on this purchase. If you decide to not take advantage of this great offer you can click no thanks at the bottom. When you agree to use SafeDelivery you will receive your MelodiesFor.us selection delivered in a timely manner by email to your account. Your emailed backup copy of the song will help you to have continued access to your song in case of data loss or when you are using different computers. Alternative offers will not give you the same satisfaction or the same $0.50 DISCOUNT. Because of this special reduced offer price we cannot offer any refunds. We always strive to serve our customers to provide them with the quickest and most reliable mode of music delivery. Our customers have the highest degree of satisfaction with SafeDelivery and we invite you to try our offer.</p>";
+		echo "<p>".$pre_text." Simply ".$start_text."click \"$button_text\" to use our services and to take advantage of the great value that SafeDelivery provides. By clicking \"$button_text\" you will receive a safe email copy of the identical song you selected in the MelodiesFor.us store for just $0.50. This is a 50% DISCOUNT for the additional copy. You will SAVE an incredible $0.50 on this purchase. When you agree to use SafeDelivery you will receive your MelodiesFor.us selection delivered in a timely manner by email to your account. Your emailed backup copy of the song will help you to have continued access to your song in case of data loss or when you are using different computers. Alternative offers will not give you the same satisfaction or the same $0.50 DISCOUNT. Because of this special reduced offer price we cannot offer any refunds. We always strive to serve our customers to provide them with the quickest and most reliable mode of music delivery. Our customers have the highest degree of satisfaction with SafeDelivery and we invite you to try our offer.</p>";
 
 	?>
 </td>
