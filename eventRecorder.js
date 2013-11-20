@@ -2,11 +2,14 @@ function logEvent(subject_name, event_name, async) {
 	page_name = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
    if(!page_name) page_name='index.php';
 
-	current_time = getCurrentTime();
+	now = new Date();
+	current_time = getCurrentTime(now);
+	current_time_ms = now.getTime();
 
 	$.ajax({url: "recordEvent.php", 
 			  data: {"current_time":current_time,
-			 			"page_name":page_name, 
+			 			"current_time_ms":current_time_ms,
+						"page_name":page_name, 
 			  			"subject_name":subject_name, 
 			  			"event_name":event_name
 					  },
@@ -14,8 +17,8 @@ function logEvent(subject_name, event_name, async) {
 		    });
 }
 
-function getCurrentTime() {
-	a=new Date();
+function getCurrentTime(now) {
+	a = now;
 	formatted = a.getFullYear()+" "+(a.getMonth()+1)+"/"+a.getDate()+" "+a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds() + ":" + a.getMilliseconds();
 	return formatted;
 }

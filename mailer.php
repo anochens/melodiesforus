@@ -50,7 +50,6 @@ $attachment
 EOT;
 
 $mail_sent = @mail( $to, $subject, $message, $headers );
-echo $mail_sent ? "Mail sent" : "Mail failed";
-die;
+//echo $mail_sent ? "Mail sent" : "Mail failed";
 ?>
 

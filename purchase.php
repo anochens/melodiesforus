@@ -40,6 +40,7 @@ if($prepop == 'yes-hidden') {
 
 <script src="./assets/js/jquery.js"></script>
 <script src="./eventRecorder.js"></script>
+<script type="text/javascript" src="/survey/js/jquery.validate.js"></script>
 <link href="./assets/css/bootstrap.css" rel="stylesheet">
 
 <style>
@@ -134,6 +135,7 @@ function next(yesno) {
 		}
 		echo "<p>$start_text below constitutes your electronic signature and we will $end_text.</p>";
 		?>
+		<form id='post_email_form'>
 		<p style="text-align: center;">
 
 
@@ -143,6 +145,15 @@ function next(yesno) {
 			<input type='text' id='post_email' class='input-block-level' style='margin-top:5px;width:85%' placeholder='Email Address' value='<?php echo $box_value; ?>' name='post_email' />
 		</span>
 
+		<style>
+		input.error, select.error {
+			background: #FFC;
+		}
+		label.error {
+			display:none;
+		}
+		</style>
+
 		<?php
 
 		$button_text = 'Email song';
@@ -151,11 +162,33 @@ function next(yesno) {
       	$button_text = 'Remove me from SafeDelivery';
 		}
 
-		echo "<a href='#' class='btn btn-large' style='font-family:times;width:75%' onclick='next(\"yes\")'>$button_text</a>";
+		echo "<a href='#' class='btn btn-large' style='font-family:times;width:75%' onclick='do_validation()' type='submit'>$button_text</a>";
 
 		?>
+		
+		<script>
+
+		function do_validation() {
+			if($("#post_email").valid() == '1') {
+				next("yes");
+			}	
+		}
+		
+		$('#post_email_form').validate({
+			rules: {
+				post_email: {
+					required: true,
+					email: true
+				}
+			} 
+
+		});
+
+		</script>
+
 		<br/><br/>
 		<a href='#' onclick='next("no")'>No thanks</a>
+		</p></form>
 	</td>
 <td></td>
 <td valign="top" style='border:solid 3px black;'>
