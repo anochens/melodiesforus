@@ -287,12 +287,12 @@ function getEmailForCurrentSession() {
 }             
 
 
-function recordEvent($session_id, $page_name, $subject_name, $event_name, $current_time) {
+function recordEvent($session_id, $page_name, $subject_name, $event_name, $current_time, $current_time_ms) {
 	$db = db_connect();
 
-	$sql = 'INSERT INTO page_event(session_id, page_name, subject_name, event_name, ts) VALUES(?,?,?,?, ?)';
+	$sql = 'INSERT INTO page_event(session_id, page_name, subject_name, event_name, ts, ts_ms) VALUES(?,?,?,?, ?, ?)';
 
    $prep = $db->prepare($sql);
-	$prep->execute(array($session_id, $page_name, $subject_name, $event_name, $current_time)); 
+	$prep->execute(array($session_id, $page_name, $subject_name, $event_name, $current_time, $current_time_ms)); 
 }
 
