@@ -162,7 +162,7 @@ function next(yesno) {
       	$button_text = 'Remove me from SafeDelivery';
 		}
 
-		echo "<a href='#' class='btn btn-large' style='font-family:times;width:75%' onclick='do_validation()' type='submit'>$button_text</a>";
+		echo "<a href='#' id='submitBtn' class='btn btn-large' style='font-family:times;width:75%' onclick='do_validation()' type='submit'>$button_text</a>";
 
 		?>
 		
