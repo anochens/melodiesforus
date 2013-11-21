@@ -1,9 +1,9 @@
 <!-- Some credit to http://24ways.org/2009/have-a-field-day-with-html5-forms/ for css -->
 
-<link rel="stylesheet" type="text/css" href="/survey/css/surveyStyle.css">
+<link rel="stylesheet" type="text/css" href="./survey/css/surveyStyle.css">
 <script src="//code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="/survey/js/jquery.validate.js"></script>
-<script type="text/javascript" src="/survey/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./survey/js/jquery.validate.js"></script>
+<script type="text/javascript" src="./survey/js/jquery.cookie.js"></script>
  
 
 

@@ -84,7 +84,7 @@ include_once('redirector.php');
 </div>
 
 
-<a id='beginBtn' class='btn btn-primary btn-small' href='/?consent=yes'>I agree to the above terms</a>
+<a id='beginBtn' class='btn btn-primary btn-small' href='./?consent=yes'>I agree to the above terms</a>
 
 <script src="./assets/js/bootstrap-transition.js"></script>
 <script src="./assets/js/bootstrap-alert.js"></script>

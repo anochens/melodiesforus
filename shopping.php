@@ -14,7 +14,7 @@
     <meta name="author" content="">
     <script src="./assets/js/jquery.js"></script>
     <script src="./eventRecorder.js"></script>
-	 <script type="text/javascript" src="/survey/js/jquery.validate.js"></script>
+	 <script type="text/javascript" src="./survey/js/jquery.validate.js"></script>
 
 	 <script>
 	 $(document).ready(function() {

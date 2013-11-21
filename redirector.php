@@ -17,25 +17,25 @@ function redir($page, $includeQuery = false) {
 }
 
 if(has_finished(-1)) {
-	redir("/thankYouPage.php");
+	redir("thankYouPage.php");
 }
 else {
 
 	if(!array_key_exists('sid', $_COOKIE)) {
-		redir("/consent.php", true);
+		redir("consent.php", true);
 	}
 	else {
 
 		$sid = intval($_COOKIE['sid']);
 
 		if(!has_consented($sid)) {
-			redir("/consent.php", true);
+			redir("consent.php", true);
 		}
 		else {
 
 			if(!has_done_presurvey($sid)) {
 				if("index.php" != basename($_SERVER["SCRIPT_FILENAME"]))
-         	redir("/shopping.php");
+         	redir("shopping.php");
 			}
 			else {
 
@@ -46,10 +46,10 @@ else {
 				}
 				else {
 					if(has_finished($sid)) {
-						redir("/thankYouPage.php");
+						redir("thankYouPage.php");
 					}                      
 					else {
-                	redir('/endSurvey.php');
+                	redir('endSurvey.php');
 					}
 				}
 			}

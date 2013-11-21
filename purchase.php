@@ -40,7 +40,7 @@ if($prepop == 'yes-hidden') {
 
 <script src="./assets/js/jquery.js"></script>
 <script src="./eventRecorder.js"></script>
-<script type="text/javascript" src="/survey/js/jquery.validate.js"></script>
+<script type="text/javascript" src="./survey/js/jquery.validate.js"></script>
 <link href="./assets/css/bootstrap.css" rel="stylesheet">
 
 <style>
@@ -82,7 +82,7 @@ function next(yesno) {
 </script>
 
 
-<iframe width=1 height=1 style='display:none' src='download.php?songId=<?php echo $songId; ?>'></iframe>
+<iframe width=1 height=1 style='display:none' src='songs/<?php echo $songId; ?>.zip'></iframe>
 
 
   <body>
@@ -101,7 +101,7 @@ function next(yesno) {
 	<p><span style="font-size: x-large; color: #ffffff;"> Get your song sent to you safely and securely with SafeDelivery</span></p>
 </td>
 <td rowspan="2" valign="top" style='border:0px'>
-	<img src="/assets/img/woman.jpg" border="0" alt="Woman " title="Woman" width="250" height="198" style="float: right;" />
+	<img src="./assets/img/woman.jpg" border="0" alt="Woman " title="Woman" width="250" height="198" style="float: right;" />
 </td>
 </tr>
 <tr>
