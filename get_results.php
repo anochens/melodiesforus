@@ -60,6 +60,22 @@ function get_entry_data($db) {
 			}
 		}
 
+      $data[$i]['last_page'] = 'undef';
+
+		if($data[$i]['finished'] == 'true') {
+			$data[$i]['last_page'] = 'FINISHED';
+		}
+		else {
+			$q = "SELECT page_name FROM page_event WHERE session_id=".$data[$i]['id']." ORDER BY id DESC LIMIT 1";
+			$r = $db->query($q);
+			$last_page= $r->fetchAll(PDO::FETCH_ASSOC);
+			if($last_page && count($last_page) > 0) {
+				$last_page = $last_page[0]['page_name'];
+				$data[$i]['last_page'] = $last_page;
+			}
+		}
+
+
 
 		foreach($data[$i] as $k=>$v) {
 			
@@ -81,7 +97,7 @@ function get_entry_data($db) {
 	
 	$headers = array_keys($data[0]);
 	for($i=1;$i<count($data);$i++) {
-		$headers2 = array_keys($data[0]);
+		$headers2 = array_keys($data[$i]);
 		if(count($headers2) > count($headers)) {
       	$headers = $headers2;
 		}
