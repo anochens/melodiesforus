@@ -1,16 +1,17 @@
 <?php
 
-date_default_timezone_set("America/New_York");
-require 'PHPMailer/PHPMailerAutoload.php';
 
 if(!isset($to))
-	$to = '';
+	$to = 'anochenson@gmail.com';
 
 if(!isset($songId))
 	$songId=2;
 
 $attachment = "songs/$songId.zip"; 
 
+date_default_timezone_set("America/New_York");
+
+require '../PHPMailerAutoload.php';
 
 $mail = new PHPMailer();
 $mail->isSMTP();
