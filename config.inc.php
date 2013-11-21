@@ -1,6 +1,6 @@
 <?php
 
-define('DB_USERNAME','alan');
-define('DB_PASSWORD','alan');
+define('DB_USERNAME','bn_wordpress');
+define('DB_PASSWORD','abdb7b5cd0');
 
 
