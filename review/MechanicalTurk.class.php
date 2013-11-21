@@ -149,7 +149,7 @@ class MechanicalTurk {
 		return file_get_contents($url);
 	}
 
-	public function grantBonus($worker_id, $assignment_id, $amount) {
+	public function grantBonus($worker_id, $assignment_id, $amount, $reason = '') {
 		$ts = $this->Unix2UTC(time());
 		
 		$url = $this->startUrl();
@@ -160,7 +160,7 @@ class MechanicalTurk {
 		$url .= '&AssignmentId=' . $assignment_id;
 		$url .= '&BonusAmount.1.Amount='.$amount;
 		$url .= '&BonusAmount.1.CurrencyCode=USD';
-		$url .= '&Reason=Bonus%20for%20FlipIt%20Game';
+		$url .= '&Reason='.urlencode($reason);
 		
 		return file_get_contents($url);
 	}  

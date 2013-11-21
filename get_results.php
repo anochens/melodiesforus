@@ -50,14 +50,14 @@ function get_entry_data($db) {
 		}
 
       $data[$i]['email_matches_pre_post'] = 'undef';
-		if($data[$i]['pre_email'] == $data[$i]['post_email'] &&
-			$data[$i]['post_email'] != 'undef'  &&
-			$data[$i]['post_email'] != '') {
 
-			$data[$i]['email_matches_pre_post'] = 'true';
-		}
-		else {
-			$data[$i]['email_matches_pre_post'] = 'false';
+		if($data[$i]['post_email'] != 'undef' && $data[$i]['post_email'] != '') {
+			if($data[$i]['pre_email'] == $data[$i]['post_email']) {
+				$data[$i]['email_matches_pre_post'] = 'true';
+			}
+			else {
+				$data[$i]['email_matches_pre_post'] = 'false';
+			}
 		}
 
 
