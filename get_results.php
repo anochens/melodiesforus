@@ -20,7 +20,8 @@ function init() {
 }
 
 function get_entry_data($db) {
-	$q = "SELECT * FROM session";
+	$q = "SELECT session.*, treatment.opt as opt, `pre-pop` as pre_pop FROM session, treatment WHERE session.treatment_id=treatment.id";
+
 
 	try {
 		$results = $db->query($q);
@@ -39,6 +40,19 @@ function get_entry_data($db) {
 		$row2 = array();
 		$row3 = array();
 		$data[$i]['finished'] = ($data[$i]['post_info'] != '') ? 'true':'false';
+
+      $data[$i]['email_sent'] = explode('|', $data[$i]['email_sent']);
+
+		$data[$i]['email_sent_revised_matches'] = 'undef';
+		if(count($data[$i]['email_sent']) > 1) 
+			$data[$i]['email_sent_revised_matches'] = $data[$i]['email_sent'][1]; 
+
+		
+		
+		$data[$i]['email_sent'] = $data[$i]['email_sent'][0];  
+
+
+
 
       $data[$i]['bonus'] = 'NO FINISH';
 		if($data[$i]['finished'] == 'true') {

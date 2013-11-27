@@ -4,13 +4,15 @@
 //The default is to do a dry run, unless realrun.txt contains a 1.
 //This script excludes action on mturk_ids that are in affected.csv.
 //BE CAREFUL!
-$giveQuals = true;
-$approve = false;
-$giveBonus = false;
+$giveQuals = false;
+$approve = true;
+$giveBonus = true;
 
 $bonus_file = 'outfile.csv';
 $record_file = 'affected.csv';
 $realrun_file ='realrun.txt';
+
+include_once(dirname(__FILE__).'/config/config.php');
 
 $dry = 1-intval(@file_get_contents($realrun_file));
 
