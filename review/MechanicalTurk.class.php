@@ -184,7 +184,7 @@ class MechanicalTurk {
 	* When a worker accepts a HIT, it's condiered 'assigned' and so has an assignment ID, this returns it
 	* See http://docs.amazonwebservices.com/AWSMechTurk/2008-08-02/AWSMturkAPI/ApiReference_GetAssignmentsForHITOperation.html
 	*/
-	public function getAssignmentsForID($hit_id) {
+	public function getAssignmentsForID($hit_id, $page = 1) {
 		$ts = $this->Unix2UTC(time());
 		
 		$url = $this->startUrl();
@@ -193,6 +193,7 @@ class MechanicalTurk {
 		$url .= '&Timestamp=' . $ts;
 		$url .= '&HITId=' . $hit_id;
 		$url .= '&PageSize=100';
+		$url .= '&PageNumber='.$page;
 		
 		$xml = simplexml_load_string(file_get_contents($url));
 
@@ -209,7 +210,29 @@ class MechanicalTurk {
 	}
 
 	public function getWorkersAndAssignmentsForHIT($hit_id) {
+		$page = 1;
+		$wids = array();
+		$aids = array();
+
+		$wa = $this->getWorkersAndAssignmentsForHITPageI($hit_id, $page);
+
+///make it so paging works right
+		while(1){
+      	$page++;
+
+		  	$wids = array_merge($wids, $wa['wids']); 
+		  	$aids = array_merge($wids, $wa['aids']); 
+			$wa = $this->getWorkersAndAssignmentsForHITPageI($hit_id, $page);
+			break;
+		}
+
+		return array("wids"=>$wids, "aids"=>$aids);
+
+
+	}
+	public function getWorkersAndAssignmentsForHITPageI($hit_id, $page) {
 		$assignments = $this->getAssignmentsForID($hit_id);
+
 		$assignments = $assignments->GetAssignmentsForHITResult;
 		$wids = json_decode(json_encode((array)($assignments->xpath('//WorkerId'))), true);
 		$wids = array_map(function($w) { return $w[0]; }, $wids);
