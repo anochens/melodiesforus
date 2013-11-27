@@ -211,7 +211,8 @@ function has_done_presurvey($sid) {
 }      
 
 function get_sid_from_mturk_id($mturk_id) {
-	$sql = "SELECT sid FROM session WHERE param_workerId = `$mturk_id`";
+	$db = db_connect();
+	$sql = "SELECT id FROM session WHERE param_workerId = '$mturk_id'";
 
    $data = runQuery($db, $sql, true);
 	if(!$data || count($data) < 0) return false;
@@ -219,10 +220,20 @@ function get_sid_from_mturk_id($mturk_id) {
    $data = runQuery($db, $sql, true);
 
 	$session = $data[0];
-	return $session['sid'];
+	return $session['id'];
 }
 
 function has_finished($sid) {
+
+	if(has_finished_by_ip()) {
+    	return true;
+	}
+
+
+	return has_finished_by_sid($sid);
+}
+
+function has_finished_by_ip() {
 	$db = db_connect();
 
 	$ip = get_ip();
@@ -236,6 +247,12 @@ function has_finished($sid) {
       	return true;
 		}
 	}
+
+	return false;
+}
+
+function has_finished_by_sid($sid) {
+	$db = db_connect();
 
 	$sql = "SELECT id, post_info FROM session WHERE id = '$sid'";
 

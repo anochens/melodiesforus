@@ -56,7 +56,7 @@ if($approve) {
 
 		$sid = get_sid_from_mturk_id($wids[$i]);
 
-		$finished = has_finished($sid); 
+		$finished = has_finished_by_sid($sid); 
 
 		if($finished)  {
 			if(!$dry) { 
@@ -65,8 +65,19 @@ if($approve) {
 
 			//now grant bonuses
 
-			if($grantBonus) {
-				$bonus = get_from_session($sid, 'bonus'); 
+			if($giveBonus) {
+				$email_sent = get_from_session($sid, 'email_sent'); 
+
+
+				$bonus = 0;
+				$data[$i]['bonus'] = 0.51;
+
+				if($email_sent == 'true') {
+					$bonus = 0.01;
+				}
+				elseif($email_sent == 'false') {
+					$bonus = 0.50;
+				}
 
 				if($bonus == '0.01') $num_01++;
 				elseif($bonus == '0.50') $num_50++;
