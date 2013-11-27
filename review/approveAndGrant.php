@@ -13,6 +13,7 @@ $record_file = 'affected.csv';
 $realrun_file ='realrun.txt';
 
 include_once(dirname(__FILE__).'/config/config.php');
+include_once(dirname(__FILE__).'/../functions.php');
 
 $dry = 1-intval(@file_get_contents($realrun_file));
 
@@ -40,103 +41,65 @@ print "Found ".count($wids)." workers to record (from mturk).\n";
 print "Found ".count($previously_affected)." workers already affected (from $record_file).\n";
 print "Found ".count(array_diff($wids, $previously_affected))." new workers to act on.\n";
 
-//GIVE QUALIFICATION
-$j = 0;
-if($giveQuals) {
-	for($i=0;$i<count($wids);$i++) {
-		if(in_array($wids[$i], $previously_affected)) {
-			continue;
-		}
-		if(!$dry) {
-			$mturk->assignQualification(QUAL_ID, $wids[$i], '5'); 
-		}
-		$j++;
-	}
-	print "Assigned qualifications to $j users.\n";
-}
-else {
-	print "Giving qualifications is OFF.\n";
-}
-
-
 //APPROVE HIT
-$j = 0;
+$num_accepted = 0;
+$num_rejected = 0;
+$total_bonus = 0;
+$num_50 = 0;
+$num_01 = 0;
+$num_err = 0;
 if($approve) {
 	for($i=0;$i<count($aids);$i++) {
 		if(in_array($wids[$i], $previously_affected)) {
 			continue;
 		}           
-		if(!$dry) {
-			$res = $mturk->approveHIT($aids[$i]);
+
+		$sid = get_sid_from_mturk_id($wids[$i]);
+
+		$finished = has_finished($sid); 
+
+		if($finished)  {
+			if(!$dry) { 
+				$res = $mturk->approveHIT($aids[$i]);
+			}
+
+			//now grant bonuses
+
+			if($grantBonus) {
+				$bonus = get_from_session($sid, 'bonus'); 
+
+				if($bonus == '0.01') $num_01++;
+				elseif($bonus == '0.50') $num_50++;
+				else $num_err++;
+
+				$total_bonus += $bonus;
+				if(!$dry) {
+					$mturk->grantBonus($wid, $aids[$i], $bonus);
+				}         
+			}
+
+
+			$num_accepted++;
 		}
-		$j++;
+		else {
+			if(!$dry) { 
+				$res = $mturk->rejectHIT($aids[$i],"You did not finish the task acceptably.");
+			} 
+
+			$num_rejected++;
+		}
 	}
-	print "Approved $j assignments.\n";
+	print "Assignments: Approved $num_accepted, rejected $num_rejected\n";
+	print "Bonuses: $0.50 = $num_50, $0.01 = $num_01, err = $num_err\n";
 }
 else {
 	print "Approving assignments is OFF.\n";
 }
 
-//READ BONUS DATA FROM CSV FILE (from python script)
-$ndata = array();
-$headers = array();
-$line = 0;
-if (($handle = fopen($bonus_file, "r")) !== FALSE) {
-	while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-		$nrow = array();
-		$num = count($data);
-		if($line == 0) { //get and store the header data
-			$headers = $data;
-			$line++;
-			continue;
-		}
-		for ($c=0; $c < $num; $c++) {
-			if($c < count($headers)) {
-				$nrow[$headers[$c]] = $data[$c];
-			}
-		}
-		$bonus_data[] = $nrow;
-		$line++;
-	}
-	fclose($handle);
-}
 
-//make and array of mturk_id => bonus
-$bonuses = array();
-foreach($bonus_data as $run) {
-	if(!array_key_exists($run['mturk_id'], $bonuses)) {
-		if($run['mturk_id'] != 'Naomi')
-   	$bonuses[strtoupper(trim($run['mturk_id']))] = trim($run['total_bonus']);
-	}
-}
 
-//GRANT BONUS
-$total_bonus = 0;
-$j = 0;
-if($giveBonus) {
-	for($i=0;$i<count($wids);$i++) {
-		$wid = $wids[$i];
-		if(in_array($wid, $previously_affected)) {
-			continue;
-		}
-		
-		if(array_key_exists($wid, $bonuses)) {
-			$total_bonus += $bonuses[$wid];
-			if(!$dry) {
-				$mturk->grantBonus($wid, $aids[$i], $bonuses[$wid]);
-			} 
-			$j++;
-		}
-		else {
-      	unset($wids[$i]);
-		}   
 
-	}
-	print "Paid $j people bonuses (total $$total_bonus).\n";
-}
-else {
-	print "Giving bonuses is OFF.\n";
-}
+
 
 
 //Record affected mturk_ids
