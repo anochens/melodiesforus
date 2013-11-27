@@ -216,14 +216,12 @@ class MechanicalTurk {
 
 		$wa = $this->getWorkersAndAssignmentsForHITPageI($hit_id, $page);
 
-///make it so paging works right
-		while(1){
+		while($wa['NumResults'] != 0){
       	$page++;
 
 		  	$wids = array_merge($wids, $wa['wids']); 
 		  	$aids = array_merge($wids, $wa['aids']); 
 			$wa = $this->getWorkersAndAssignmentsForHITPageI($hit_id, $page);
-			break;
 		}
 
 		return array("wids"=>$wids, "aids"=>$aids);
@@ -231,14 +229,21 @@ class MechanicalTurk {
 
 	}
 	public function getWorkersAndAssignmentsForHITPageI($hit_id, $page) {
-		$assignments = $this->getAssignmentsForID($hit_id);
+		$assignments = $this->getAssignmentsForID($hit_id, $page);
 
 		$assignments = $assignments->GetAssignmentsForHITResult;
-		$wids = json_decode(json_encode((array)($assignments->xpath('//WorkerId'))), true);
+
+
+	   $wids = json_decode(json_encode((array)($assignments->xpath('//WorkerId'))), true);
 		$wids = array_map(function($w) { return $w[0]; }, $wids);
 		$aids = json_decode(json_encode((array)($assignments->xpath('//AssignmentId'))), true);
 		$aids = array_map(function($w) { return $w[0]; }, $aids);
-		return array("wids"=>$wids, "aids"=>$aids);
+
+
+		$nr = json_decode(json_encode((array)($assignments->xpath('//NumResults'))), true);
+		$nr=$nr[0][0];
+
+		return array("wids"=>$wids, "aids"=>$aids,'NumResults'=>$nr);
 	}
 
 	public function assignQualification($qtid, $worker_id, $value) {

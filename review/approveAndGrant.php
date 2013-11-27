@@ -38,6 +38,7 @@ $wids = $wids_aids['wids'];
 $aids = $wids_aids['aids'];
 
 print "Found ".count($wids)." workers to record (from mturk).\n";
+print "Found ".count($aids)." assignments to record (from mturk).\n";
 print "Found ".count($previously_affected)." workers already affected (from $record_file).\n";
 print "Found ".count(array_diff($wids, $previously_affected))." new workers to act on.\n";
 
