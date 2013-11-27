@@ -210,6 +210,18 @@ function has_done_presurvey($sid) {
 	return get_from_session($sid, 'pre_email') != 'undef';
 }      
 
+function get_sid_from_mturk_id($mturk_id) {
+	$sql = "SELECT sid FROM session WHERE param_workerId = `$mturk_id`";
+
+   $data = runQuery($db, $sql, true);
+	if(!$data || count($data) < 0) return false;
+
+   $data = runQuery($db, $sql, true);
+
+	$session = $data[0];
+	return $session['sid'];
+}
+
 function has_finished($sid) {
 	$db = db_connect();
 

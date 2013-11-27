@@ -149,6 +149,21 @@ class MechanicalTurk {
 		return file_get_contents($url);
 	}
 
+
+	public function rejectHIT($assignment_id, $msg='You did not complete this
+	HIT.') {
+		$ts = $this->Unix2UTC(time());
+		
+		$url = $this->startUrl();
+		$url .= '&Operation=RejectAssignment';
+		$url .= '&Signature=' . $this->generateSignature($this->MTURK_SERVICE, 'ApproveAssignment', $ts);
+		$url .= '&Timestamp=' . $ts;
+		$url .= '&AssignmentId=' . $assignment_id;
+		$url .= '&RequesterFeedback=' . $msg;
+		
+		return file_get_contents($url);
+	}  
+
 	public function grantBonus($worker_id, $assignment_id, $amount, $reason = '') {
 		$ts = $this->Unix2UTC(time());
 		
