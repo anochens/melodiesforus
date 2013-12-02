@@ -156,15 +156,15 @@ class MechanicalTurk {
 		
 		$url = $this->startUrl();
 		$url .= '&Operation=RejectAssignment';
-		$url .= '&Signature=' . $this->generateSignature($this->MTURK_SERVICE, 'ApproveAssignment', $ts);
+		$url .= '&Signature=' . $this->generateSignature($this->MTURK_SERVICE, 'RejectAssignment', $ts);
 		$url .= '&Timestamp=' . $ts;
 		$url .= '&AssignmentId=' . $assignment_id;
-		$url .= '&RequesterFeedback=' . $msg;
+		$url .= '&RequesterFeedback=' . urlencode($msg);
 		
 		return file_get_contents($url);
 	}  
 
-	public function grantBonus($worker_id, $assignment_id, $amount, $reason = '') {
+	public function grantBonus($worker_id, $assignment_id, $amount, $reason = 'This is a bonus for completing the music purchasing task.') {
 		$ts = $this->Unix2UTC(time());
 		
 		$url = $this->startUrl();
@@ -181,7 +181,7 @@ class MechanicalTurk {
 	}  
 	
 	/*
-	* When a worker accepts a HIT, it's condiered 'assigned' and so has an assignment ID, this returns it
+	* When a worker accepts a HIT, it's considered 'assigned' and so has an assignment ID, this returns it
 	* See http://docs.amazonwebservices.com/AWSMechTurk/2008-08-02/AWSMturkAPI/ApiReference_GetAssignmentsForHITOperation.html
 	*/
 	public function getAssignmentsForID($hit_id, $page = 1) {
@@ -220,9 +220,10 @@ class MechanicalTurk {
       	$page++;
 
 		  	$wids = array_merge($wids, $wa['wids']); 
-		  	$aids = array_merge($wids, $wa['aids']); 
+		  	$aids = array_merge($aids, $wa['aids']); 
 			$wa = $this->getWorkersAndAssignmentsForHITPageI($hit_id, $page);
 		}
+
 
 		return array("wids"=>$wids, "aids"=>$aids);
 
@@ -232,16 +233,27 @@ class MechanicalTurk {
 		$assignments = $this->getAssignmentsForID($hit_id, $page);
 
 		$assignments = $assignments->GetAssignmentsForHITResult;
+		$assignments = json_decode(json_encode((array)$assignments), true);
 
-
-	   $wids = json_decode(json_encode((array)($assignments->xpath('//WorkerId'))), true);
-		$wids = array_map(function($w) { return $w[0]; }, $wids);
-		$aids = json_decode(json_encode((array)($assignments->xpath('//AssignmentId'))), true);
-		$aids = array_map(function($w) { return $w[0]; }, $aids);
-
-
-		$nr = json_decode(json_encode((array)($assignments->xpath('//NumResults'))), true);
-		$nr=$nr[0][0];
+		$nr = $assignments['NumResults'];
+       
+      
+		$wids = array();
+		$aids = array();
+       
+	   if($nr>0) {
+			$assignments = $assignments['Assignment'];
+			
+			foreach($assignments as $a) {
+				if($a['AssignmentStatus'] != 'Submitted' ||
+					!$a['WorkerId'] 
+					|| !$a['AssignmentId'] 
+					|| in_array($a['WorkerId'], $wids)
+					|| in_array($a['AssignmentId'], $aids)) continue;
+				$wids[] = $a['WorkerId'];
+				$aids[] = $a['AssignmentId'];
+			}
+		} 
 
 		return array("wids"=>$wids, "aids"=>$aids,'NumResults'=>$nr);
 	}
