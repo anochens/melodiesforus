@@ -1,5 +1,6 @@
 <?php
 include('functions.php');
+include('BigInteger.php');
 
 date_default_timezone_set('America/New_York');
 $date = date('m-d-Y', time());
@@ -36,6 +37,11 @@ function get_entry_data($db) {
 
 	$ignore = array('sid','mturk_id','pre_email','pre_mturk_id');
 
+
+	$q = "SELECT * FROM page_event WHERE event_name='load' OR page_name='purchase.php' OR subject_name='secondStage' ORDER BY session_id ASC, ts_ms ASC";
+	$r = $db->query($q);
+	$all_event_data= $r->fetchAll(PDO::FETCH_ASSOC);
+
 	for($i=0;$i<count($data);$i++) {
 		$row2 = array();
 		$row3 = array();
@@ -47,9 +53,11 @@ function get_entry_data($db) {
 		if(count($data[$i]['email_sent']) > 1) 
 			$data[$i]['email_sent_revised_matches'] = $data[$i]['email_sent'][1]; 
 
+		$data[$i]['total_time_mins'] = 'NO FINISH';
 		
 		
 		$data[$i]['email_sent'] = $data[$i]['email_sent'][0];  
+
 
 
 
@@ -74,25 +82,87 @@ function get_entry_data($db) {
 			}
 		}
 
+
+	//here is where the condition was taken out is pre_survey true
+		$data[$i]['purchase_page_mins'] = 'NEVER REACHED';
+		$data[$i]['total_time_mins'] = 'NEVER REACHED';
+
+		$last_page='undef';
+
+
+		$load_purchase_page = 'ERROR';
+		$close_purchase_page = 'ERROR';
+
+		$load_first_page = 'ERROR';
+		$close_last_page = 'ERROR';
+		$sid = intval($data[$i]['id']);
+
+		for($j=0;$j<count($all_event_data);$j++) {
+			$e_sid = intval($all_event_data[$j]['session_id']);
+
+			if($e_sid < $sid) {
+				continue;
+			}
+			elseif($e_sid > $sid) {
+				$close_last_page = new Math_BigInteger($all_event_data[$j-1]['ts_ms']);
+				$last_page = $all_event_data[$j-1];
+				break;
+			}  
+
+			//only if we are in the right session
+			$e = $all_event_data[$j];
+
+			//this is the first event for this session
+			if($j == 0 || ($j>0 && intval($all_event_data[$j-1]['session_id']) < $sid)) {
+				$load_first_page = new Math_BigInteger($e['ts_ms']);
+				$close_last_page = new Math_BigInteger($e['ts_ms']);
+			}
+
+
+			if($all_event_data[$j]['page_name'] == 'purchase.php') {
+				$event_name  = $e['event_name'];
+				$subject_name  = $e['subject_name'];
+				if($event_name == 'load') {
+					$load_purchase_page = new Math_BigInteger($e['ts_ms']);
+				}
+				elseif($subject_name != 'page') {
+					$close_purchase_page = new Math_BigInteger($e['ts_ms']);
+					//break;
+				}
+			}
+
+			if($close_purchase_page != 'ERROR') {
+				$data[$i]['purchase_page_mins'] = $close_purchase_page->subtract($load_purchase_page)->toString(); 
+				$data[$i]['purchase_page_mins'] = round(intval($data[$i]['purchase_page_mins'])/1000/60,2);
+
+			}
+			else {
+				$data[$i]['purchase_page_mins'] = 'DROPPED';
+
+			}
+
+			$data[$i]['total_time_mins'] = $close_last_page->subtract($load_first_page)->toString(); 
+			$data[$i]['total_time_mins'] = round(intval($data[$i]['total_time_mins'])/1000/60,2);
+
+		}
+
+		////////////
+
       $data[$i]['last_page'] = 'undef';
 
 		if($data[$i]['finished'] == 'true') {
 			$data[$i]['last_page'] = 'FINISHED';
 		}
 		else {
-			$q = "SELECT page_name FROM page_event WHERE session_id=".$data[$i]['id']." ORDER BY id DESC LIMIT 1";
-			$r = $db->query($q);
-			$last_page= $r->fetchAll(PDO::FETCH_ASSOC);
-			if($last_page && count($last_page) > 0) {
-				$last_page = $last_page[0]['page_name'];
-				$data[$i]['last_page'] = $last_page;
+			$data[$i]['last_page'] = $last_page['page_name'];
+
+			if($last_page['subject_name'] == 'secondStage') {
+				$data[$i]['last_page'] = 'secondStage';
 			}
 		}
 
 
-
 		foreach($data[$i] as $k=>$v) {
-			
 			if($k == 'pre_info' || $k == 'post_info') {
          	$info = json_decode($v, true);
 				$data[$i][$k] = 'expanded';

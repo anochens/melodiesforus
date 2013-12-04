@@ -1,4 +1,7 @@
 <?php
+
+die('This experiment is now closed. Thank you for your participation.');
+
 include_once('functions.php');
 
 function redir($page, $includeQuery = false) {
