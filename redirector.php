@@ -1,6 +1,8 @@
 <?php
 
-die('This experiment is now closed. Thank you for your participation.');
+if(!array_key_exists('override', $_REQUEST)) {
+	die('This experiment is now closed. Thank you for your participation.');
+}
 
 include_once('functions.php');
 
