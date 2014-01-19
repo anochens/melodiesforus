@@ -1,6 +1,8 @@
 <?php //helper functions
 include_once('config.php');
 
+$PAGES = array('consent.php','index.php','shopping.php', 'purchase.php', 'endSurvey.php', 'thankYouPage.php');
+
 function db_connect() {
 	global $db;
 	if($db) return $db;
@@ -56,6 +58,12 @@ function get_new_treatment() {
 
 function enter_new_session($param_hitId, $param_workerId) {
    $db = db_connect();
+
+   if(has_finished_by_ip() || 
+		(has_finished_by_mturk_id($param_workerId) && $param_workerId !='test_mturk_id'))
+		return 0;
+
+
 
    $sql = 'INSERT INTO session(ip, param_hitId, param_workerId, treatment_id) VALUES(?,?,?,?)';
 
@@ -197,6 +205,20 @@ function get_from_session($sid, $field, $from_pre_info = false) {
 	return $fieldval;
 }
 
+function redir($page, $includeQuery = false) {
+	$base = basename($_SERVER["SCRIPT_FILENAME"]);
+	if($page == $base || $page == "/$base") {
+   	return; //don't redirect if we are already on the page
+	}
+	if($includeQuery) {
+		if($_SERVER['QUERY_STRING']) {
+			$page .= "?".$_SERVER['QUERY_STRING'];
+		}
+	}
+	header("Location: $page");
+
+	die;
+}              
 
 function has_consented($sid) {
 	return get_from_session($sid, 'consent') == 'yes';
@@ -233,6 +255,25 @@ function has_finished($sid) {
 	return has_finished_by_sid($sid);
 }
 
+
+function has_finished_by_mturk_id($mturk_id) {
+	$db = db_connect();
+
+	$ip = get_ip();
+	$sql = "SELECT id, post_info FROM session WHERE param_workerId = '$mturk_id'";
+
+   $data = runQuery($db, $sql, true);
+
+   if(count($data) > 0) { //we have a session
+		$session = $data[0];
+		if($session['post_info']) {
+      	return true;
+		}
+	}
+
+	return false;
+}                                      
+
 function has_finished_by_ip() {
 	$db = db_connect();
 
@@ -267,6 +308,20 @@ function has_finished_by_sid($sid) {
 
 	return false;
 }   
+
+function get_last_page($sid) {
+	$db = db_connect();
+
+	$sql = "SELECT page_name FROM page_event WHERE session_id = '$sid' AND event_name = 'load' AND subject_name = 'page' ORDER BY ts_ms DESC LIMIT 1";
+
+   $data = runQuery($db, $sql, true);
+
+   if(count($data) > 0) { //we have a session
+		$session = $data[0];
+		return $session['page_name'];
+	}
+	return 'undef';
+}
 
  
 

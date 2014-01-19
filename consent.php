@@ -4,6 +4,14 @@ include_once('functions.php');
 if(!curr_session_is_valid()) {
 	$hitId = '';
 	$workerId = '';
+
+
+  
+	if(array_key_exists('override', $_REQUEST)) {
+		$hitId = 'testing_hit_id';
+		$workerId = 'test_mturk_id';
+	} 
+
 	if(array_key_exists('hitId', $_REQUEST)) {
 		$hitId = $_REQUEST['hitId'];
 	}
@@ -12,14 +20,14 @@ if(!curr_session_is_valid()) {
 		$workerId = $_REQUEST['workerId'];
 	}                                 
 
-
-	if(array_key_exists('override', $_REQUEST)) {
-		$hitId = 'testing_hit_id';
-		$workerId = 'test_mturk_id';
-	}        
+       
 
 	if($hitId && $workerId) {
 		$sid = enter_new_session($hitId, $workerId);
+
+		if(!$sid) {
+      	die("You have already completed a task on this site. You may not participate multiple times. Sorry for the inconvenience.");
+		}
 	}
 	else {
 		die("This page can only be accessed through the Mechanical Turk HIT. Please accept the task and click the link to this page from there.");
@@ -84,7 +92,7 @@ include_once('redirector.php');
 </div>
 
 
-<a id='beginBtn' class='btn btn-primary btn-small' href='./?consent=yes'>I agree to the above terms</a>
+<a id='beginBtn' class='btn btn-primary btn-small' href='./process_consent.php?consent=yes'>I agree to the above terms</a>
 
 <script src="./assets/js/bootstrap-transition.js"></script>
 <script src="./assets/js/bootstrap-alert.js"></script>
