@@ -1,5 +1,11 @@
 <?php
  include_once('redirector.php');
+
+$sid = intval($_COOKIE['sid']);
+$treatment = getTreatmentForSession($sid);
+
+$wt = $treatment['warning_type'];
+$warning_msg = $treatment['warning_msg'];
  
 ?>
 
@@ -44,12 +50,15 @@
 			border: 3px solid black;
 			padding: 5px;
 		}
-		#cartSpan {
+		#cartSpan, #warningSpan {
 			height: 150px;
 			max-width:170px;
 			padding: 10px;
 			padding-right:15px;
 			border: 3px solid black;
+		}
+		#warningSpan {
+			display:none;
 		}
 		#cartSongArea {
 			height: 100px;
@@ -243,6 +252,15 @@
 				</div>
 			</div> <!-- cart row -->
 
+			<div class='row' style='margin-top:20px'>
+				<div id='warningSpan' class='span3'>
+					<div class='row'>
+						<div style='width: 160px' class="span2">
+							<p id='warning'></p> <!-- This is where the song goes -->
+						</div>
+					</div>
+				</div>                           
+
 			<div class='row'>
 				<div class="span3" id='cartSecurityArea'>
 				</div>
@@ -270,6 +288,20 @@
 			logEvent('secondStage', 'show');
 
 			$('#secondStage').show();
+
+         <?php
+			if($wt == 'checkout') {
+
+         	echo "$('#warningSpan').show();";
+
+				echo "$('#warning').html('$warning_msg');";
+			}
+
+
+			?>
+
+			
+
 		 }
 
 		 </script>
