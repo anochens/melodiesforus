@@ -35,7 +35,7 @@ else {
 		else {
 
 			if(!has_done_presurvey($sid)) {
-				if("index.php" != basename($_SERVER["SCRIPT_FILENAME"]))
+				if("intro.php" != basename($_SERVER["SCRIPT_FILENAME"]))
          	redir("shopping.php");
 			}
 			else {

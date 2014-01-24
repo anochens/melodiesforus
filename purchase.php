@@ -44,19 +44,23 @@ function showInterstitial() {
 	$toExec = '$("#interstitial").hide();logEvent("interstitial", "hide");';
 	?>
 
+			
 	<div id='interstitial' style='position:absolute;left:0;top:0;width:100%;height:100%;text-align:center;background-color:white;display:table'>
 		<div style='display:inline-block;margin:0 auto;display:table-cell;vertical-align:middle'>
+
+		<center>
+		<div style='border: 3px solid black;padding:10px;height: 150px; width:500px'>
 		<?php echo $warning_msg; 
 		
 		if($wt == 'interstitial_button') {
-			echo "<button id='hide_interstitial_btn' style='margin-top:30px;height:50px;width:75px' onclick='$toExec'>Okay</button>";
+			echo "<br><button id='hide_interstitial_btn' style='margin-top:30px;height:50px;width:75px' onclick='$toExec'>Okay</button>";
 		}
 		else {    //interstitial_timer_[long/short]
 			$length = str_replace('interstitial_timer_','',$wt);
-			$waitTime = 7000; //7 secs
+			$waitTime = 10000; //10 secs
 
          if($length == 'short') {
-				$waitTime = 3000; //3 secs
+				$waitTime = 5000; //5 secs
 			}
 			
 			echo "<script>setTimeout('$toExec', $waitTime);</script>";
@@ -64,6 +68,9 @@ function showInterstitial() {
 		
 		
 		?>
+
+		</div>
+		</center>
 
 		</div>
 	
