@@ -51,7 +51,7 @@ $warning_msg = $treatment['warning_msg'];
 			padding: 5px;
 		}
 		#cartSpan, #warningSpan {
-			height: 150px;
+			height: 164px;
 			max-width:170px;
 			padding: 10px;
 			padding-right:15px;
@@ -252,11 +252,11 @@ $warning_msg = $treatment['warning_msg'];
 				</div>
 			</div> <!-- cart row -->
 
-			<div class='row' style='margin-top:20px'>
+			<div class='row' style='margin-top:10px'>
 				<div id='warningSpan' class='span3'>
 					<div class='row'>
-						<div style='width: 160px' class="span2">
-							<p id='warning'></p> <!-- This is where the song goes -->
+						<div style='width: 160px;' class="span2">
+							<p id='warning'></p> 
 						</div>
 					</div>
 				</div>                           
@@ -306,10 +306,6 @@ $warning_msg = $treatment['warning_msg'];
 
 		 </script>
  
-      <hr>
-      <footer>
-      </footer>
-
     </div> <!-- /container -->
 
     <!-- Placed at the end of the document so the pages load faster -->
