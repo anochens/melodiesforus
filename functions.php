@@ -260,7 +260,7 @@ function has_finished_by_mturk_id($mturk_id) {
 	$db = db_connect();
 
 	$ip = get_ip();
-	$sql = "SELECT id, post_info FROM session WHERE param_workerId = '$mturk_id'";
+	$sql = "SELECT id, post_info FROM session WHERE param_workerId = '$mturk_id' ORDER BY id DESC";
 
    $data = runQuery($db, $sql, true);
 
