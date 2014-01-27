@@ -20,7 +20,7 @@ class SurveyParts {
 		'data' => array(
 		 'check5' => array('label' => 'Please select the rightmost option.', 'type' => 'likert', 'size' => '5'),
 		 'check3' => array('label' => 'Please select the middle option.', 'type' => 'likert', 'size' => '5'),
-		 'check1' => array('label' => 'Please select the left option.', 'type' => 'likert', 'size' => '5')
+		 'check1' => array('label' => 'Please select the leftmost option.', 'type' => 'likert', 'size' => '5')
 
 		));
 		$demoPre = 'Please answer the following demographic questions.';
@@ -34,7 +34,7 @@ class SurveyParts {
 			));
 
 
-		$times = array('', 'Daily', 'Weekly', 'Monthly', 'Rarely', 'Never');
+		$times = array('', 'Daily', 'Weekly', 'Monthly', 'Less than once per month', 'Never');
 
 		$shopping =  array('title'=>'Shopping questions',
 		'data'=>array(
@@ -42,6 +42,8 @@ class SurveyParts {
 			'shopping_oftenPurchase' => array('label' => 'How often do you purchase music online?', 'type' => 'select', 'options' => $times),
 			'shopping_spendPerMonth'=> array('label'=> 'How much do you spend on average per month on music purchases? $'),
 			'shopping_oftenStreaming' => array('label' => 'How often do you stream music online?', 'type' => 'select', 'options' => $times),
+			'disconcerting_yn' => array('label' => 'Was anything in this task disconcerting or troubling to you?', 'type' => 'select', 'options' => array('','Yes - will describe below', 'No')),
+			'disconcerting_expl'=> array('label'=> 'Why did you choose the above answer?', 'type'=>'textarea'),
 		));
 
 
@@ -80,8 +82,9 @@ class SurveyParts {
 			'safeDelivery_didYouSubscribe' => array('label' => 'Did you purchase the SafeDelivery service?', 'type' => 'select', 'options' => array('','Yes','No','I don\'t know')),
 
 			'safeDelivery_howValuableService' => array('label' => 'How valuable is the SafeDelivery service to you?', 'type' => 'likert', 'size' => 5, 'left'=>'Not valuable', 'right'=>'Very valuable'),
+			'safeDelivery_howValuableService_expl'=> array('label'=> 'Why did you choose the above rating?', 'type'=>'textarea'),
 			'safeDelivery_howValuableDiscount' => array('label' => 'How valuable is the discount offered by the SafeDelivery service to you?', 'type' => 'likert', 'size' => 5, 'left'=>'Not valuable', 'right'=>'Very valuable'),
-			'safeDelivery_relationship' => array('label' => 'What is the relationship between MelodiesFor.us and SafeDelivery?', 'type' => 'radio', 'options' => array('MelodiesFor.us and SafeDelivery are the same site.','MelodiesFor.us and SaeDelivery are partners.','MelodiesFor.us and SafeDelivery are unrelated.','I do not know what the relationship between MelodiesFor.us and SafeDelivery is.')),
+			'safeDelivery_relationship' => array('label' => 'What is the relationship between MelodiesFor.us and SafeDelivery?', 'type' => 'radio', 'options' => array('MelodiesFor.us and SafeDelivery are the same site.','MelodiesFor.us and SafeDelivery are partners.','MelodiesFor.us and SafeDelivery are unrelated.','I do not know what the relationship between MelodiesFor.us and SafeDelivery is.')),
 		));                                                              
 
 		$this->addComponents($demo);

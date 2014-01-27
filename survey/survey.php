@@ -28,10 +28,8 @@ $(document).ready(function(){
 			//errorMsgTop.html('<span style="color:#AA0000">Questions in red are required and have not been filled out. Please fill in these questions.</span>');
 		},
 		rules: {
-			safeDelivery_whatDoes: {
-				required: true,
-				minlength:20,
-				maxlength:500,
+			disconcerting_expl: {
+				required: false,
 			},
 			age: {
 				required: true,

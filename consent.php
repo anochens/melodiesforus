@@ -1,15 +1,20 @@
+
+
 <?php
 include_once('functions.php');
 
 if(!curr_session_is_valid()) {
 	$hitId = '';
 	$workerId = '';
-
-
+	$treatmentId = 0;
   
 	if(array_key_exists('override', $_REQUEST)) {
 		$hitId = 'testing_hit_id';
 		$workerId = 'test_mturk_id';
+
+		if(array_key_exists('treatmentId', $_REQUEST)) {
+			$treatmentId = intval($_REQUEST['treatmentId']);
+		}
 	} 
 
 	if(array_key_exists('hitId', $_REQUEST)) {
@@ -20,10 +25,14 @@ if(!curr_session_is_valid()) {
 		$workerId = $_REQUEST['workerId'];
 	}                                 
 
+
        
 
 	if($hitId && $workerId) {
 		$sid = enter_new_session($hitId, $workerId);
+		if($treatmentId > 0) {
+			edit_session(array('treatment_id'=>$treatmentId), false, 'override');
+		}
 
 		if(!$sid) {
       	die("You have already completed a task on this site. You may not participate multiple times. Sorry for the inconvenience.");
