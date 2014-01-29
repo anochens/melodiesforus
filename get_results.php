@@ -83,7 +83,6 @@ function get_entry_data($db) {
 		}
 
 
-	//here is where the condition was taken out is pre_survey true
 		$data[$i]['purchase_page_mins'] = 'NEVER REACHED';
 		$data[$i]['total_time_mins'] = 'NEVER REACHED';
 
