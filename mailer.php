@@ -1,5 +1,6 @@
 <?php
 
+include_once("config.php")
 date_default_timezone_set("America/New_York");
 require 'PHPMailer/PHPMailerAutoload.php';
 
@@ -31,10 +32,10 @@ $subject = 'SafeDelivery: Your song';
 $mail->Port = 587;
 $mail->SMTPSecure = 'tls';
 $mail->SMTPAuth = true;
-$mail->Username = "safedeliveryservice1@gmail.com";
-$mail->Password = "mturk12345";
-$mail->setFrom('safedeliveryservice1@gmail.com', 'Safe Delivery');
-$mail->addReplyTo('safedeliveryservice1@gmail.com', 'Safe Delivery');
+$mail->Username = SAFEDELIVERY_UNAME;
+$mail->Password = SAFEDELIVERY_PWD;
+$mail->setFrom(SAFEDELIVERY_UNAME, 'Safe Delivery');
+$mail->addReplyTo(SAFEDELIVERY_UNAME, 'Safe Delivery');
 $mail->addAddress($to, '');
 $mail->Subject = $subject;
 $mail->msgHTML($body, dirname(__FILE__));

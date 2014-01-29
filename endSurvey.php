@@ -24,6 +24,7 @@ if(array_key_exists('sendEmail', $_GET)) {
 		$email_sent = true;
 		$songId = get_from_session($sid, 'songId', true);
 
+		//tis avoid duplicates being sent when someone reloads the page
 		if(!has_seen_negative_option($sid)) { 
 			include('mailer.php');
 		}
