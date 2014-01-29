@@ -1,6 +1,6 @@
 <?php
 
-include_once("config.php")
+include_once("config.php");
 date_default_timezone_set("America/New_York");
 require 'PHPMailer/PHPMailerAutoload.php';
 
