@@ -295,7 +295,7 @@ function has_finished_by_ip() {
 function has_finished_by_sid($sid) {
 	$db = db_connect();
 
-	$sql = "SELECT id, post_info FROM session WHERE id = '$sid'";
+	$sql = "SELECT id, post_info FROM session WHERE id = '$sid' ORDER by id DESC LIMIT 1";
 
    $data = runQuery($db, $sql, true);
 

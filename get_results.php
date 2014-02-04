@@ -21,7 +21,7 @@ function init() {
 }
 
 function get_entry_data($db) {
-	$q = "SELECT session.*, treatment.opt as opt, `pre-pop` as pre_pop FROM session, treatment WHERE session.treatment_id=treatment.id";
+	$q = "SELECT session.*, treatment.opt as opt, `pre-pop` as pre_pop, warning_type FROM session, treatment WHERE session.treatment_id=treatment.id";
 
 
 	try {
@@ -158,6 +158,11 @@ function get_entry_data($db) {
 			if($last_page['subject_name'] == 'secondStage') {
 				$data[$i]['last_page'] = 'secondStage';
 			}
+
+
+			if($last_page['subject_name'] == 'secondStage') {
+				$data[$i]['last_page'] = 'secondStage';
+			}                                  
 		}
 
 
