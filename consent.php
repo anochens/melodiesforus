@@ -1,6 +1,7 @@
-
-
 <?php
+
+//This is the actual form that requests consent in beginning of the experiment.
+
 include_once('functions.php');
 
 if(!curr_session_is_valid()) {

@@ -1,4 +1,7 @@
 <?php
+
+//This is the music shopping page
+
  include_once('redirector.php');
 
 $sid = intval($_COOKIE['sid']);
@@ -291,17 +294,11 @@ $warning_msg = $treatment['warning_msg'];
 
          <?php
 			if($wt == 'checkout') {
-
          	echo "$('#warningSpan').show();";
-
 				echo "$('#warning').html('$warning_msg');";
 			}
 
-
 			?>
-
-			
-
 		 }
 
 		 </script>

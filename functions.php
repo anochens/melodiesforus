@@ -1,11 +1,14 @@
-<?php //helper functions
+<?php
+
+//These functions are included on pretty much every page
+
 include_once('config.php');
 
 $PAGES = array('consent.php','index.php','shopping.php', 'purchase.php', 'endSurvey.php', 'thankYouPage.php');
 
 function db_connect() {
 	global $db;
-	if($db) return $db;
+	if($db) return $db; //if a db connection exists, don't get another one
 
 	try {
 		$db = new PDO('mysql:host=localhost;dbname=negative_options', DB_USERNAME, DB_PASSWORD);
@@ -154,6 +157,7 @@ function edit_session($data, $ignoreOtherData, $prepost) {
 	$prep->execute();
 }
 
+// "cheaters" are people that try to change their post-transaction offer response
 function recordCheater($sid, $new_sendEmail) {
 	$sendEmail = get_from_session($sid, 'email_sent');
 

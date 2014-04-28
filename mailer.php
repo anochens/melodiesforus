@@ -1,5 +1,7 @@
 <?php
 
+//This file sends email to someone through an external service (e.g. gmail)
+
 include_once("config.php");
 date_default_timezone_set("America/New_York");
 require 'PHPMailer/PHPMailerAutoload.php';

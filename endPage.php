@@ -4,7 +4,7 @@ include_once('redirector.php');
 processSurvey();
 
 include('thankYouPage.php');
-die;
+die;  //not really needed, but just here for safety
 
 
 
@@ -15,6 +15,8 @@ function processSurvey() {
 		 
 	integrityCheck();
 
+	//If you are using the scales, then these lines collapse multiple-item questions
+	//into a single-item score
 	//collapseScale('rps', 9);
 	//collapseScale('nfc', 9);
 	ksort($_REQUEST);
@@ -22,6 +24,7 @@ function processSurvey() {
 	edit_session($_REQUEST, false, 'post');
 }
 
+/*
 function collapseScale($type, $size) {
 	if($type == 'rps' || $type == 'nfc') {
 		
@@ -49,7 +52,9 @@ function collapseScale($type, $size) {
 		$_REQUEST[$type.'total'] = $rpstotal;
 	}
 } 
+*/
 
+//Checks the correctness of the integrity questions on the survey.
 function integrityCheck() {
 	foreach($_REQUEST as $k => $v) {
 		if(preg_match('/^check(\d)$/', $k, $matches)) {

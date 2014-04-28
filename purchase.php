@@ -1,5 +1,7 @@
 <?php                        
 
+//This is the post-transaction offer page.
+
 include_once('functions.php');
 
 $sid = intval($_COOKIE['sid']);
@@ -19,6 +21,8 @@ else {
 }
 include_once('redirector.php');
 
+
+//get the treatment and its properties for the current session
 $treatment = getTreatmentForSession($sid);
 
 $box_value = '';
@@ -35,10 +39,11 @@ if($prepop == 'yes-hidden') {
 	$box_hidden = true;
 }
 
-
 $wt = $treatment['warning_type'];
 $warning_msg = $treatment['warning_msg'];
 
+
+//shows interstitial warnings
 function showInterstitial() {
 	global $warning_msg, $wt;
 	$toExec = '$("#interstitial").hide();logEvent("interstitial", "hide");';
@@ -71,24 +76,16 @@ function showInterstitial() {
 
 		</div>
 		</center>
-
 		</div>
-	
-
 	</div>
 
 
 	<?php
 }
 
-
-   if($wt != 'checkout')  {
-		showInterstitial();
-
-	}
-
-
-
+if($wt != 'checkout' && $wt != 'none')  {
+	showInterstitial();
+}
 ?>      
 
 <script src="./assets/js/jquery.js"></script>
@@ -100,7 +97,6 @@ function showInterstitial() {
 
 table{
 	margin-bottom:10px;
-
 }
 td {
 	padding: 10px;
@@ -135,6 +131,7 @@ function next(yesno) {
 </script>
 
 
+<!-- use this iframe to start the download -->
 <iframe width=1 height=1 style='display:none' src='songs/<?php echo $songId; ?>.zip'></iframe>
 
 

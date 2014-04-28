@@ -1,3 +1,5 @@
+-- This file recreates the database for a new server
+--
 -- MySQL dump 10.13  Distrib 5.5.34, for Linux (i686)
 --
 -- Host: localhost    Database: negative_options

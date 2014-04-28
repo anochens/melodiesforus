@@ -1,7 +1,13 @@
 <?php
+
+//this is the page that is called after an experiment to create the data file.
+//If you add "?online" to the url (no quotes), this will show the data in the browser
+//and will not create a CSV. That feature is mainly for debugging.
+
 include('functions.php');
 include('BigInteger.php');
 
+//CSV file created from here are data-coded.
 date_default_timezone_set('America/New_York');
 $date = date('m-d-Y', time());
 
@@ -35,8 +41,8 @@ function get_entry_data($db) {
 	$headers = array();
 	$headersSet = false;
 
+	//a list of fields that you don't want in the data file
 	$ignore = array('sid','mturk_id','pre_email','pre_mturk_id');
-
 
 	$q = "SELECT * FROM page_event WHERE event_name='load' OR page_name='purchase.php' OR subject_name='secondStage' ORDER BY session_id ASC, ts_ms ASC";
 	$r = $db->query($q);
@@ -45,32 +51,22 @@ function get_entry_data($db) {
 	for($i=0;$i<count($data);$i++) {
 		$row2 = array();
 		$row3 = array();
+
+      //All of the manipulations below process the data and create new field values
+		//and new columns. Any key in the $data array will become a column heading
+
+
 		$data[$i]['finished'] = ($data[$i]['post_info'] != '') ? 'true':'false';
 
+		//possible options for email sent are 'true','false', or 'true|SAME', etc.
       $data[$i]['email_sent'] = explode('|', $data[$i]['email_sent']);
 
+		//this could also be named 'is_cheater'
 		$data[$i]['email_sent_revised_matches'] = 'undef';
 		if(count($data[$i]['email_sent']) > 1) 
 			$data[$i]['email_sent_revised_matches'] = $data[$i]['email_sent'][1]; 
 
-		$data[$i]['total_time_mins'] = 'NO FINISH';
-		
-		
-		$data[$i]['email_sent'] = $data[$i]['email_sent'][0];  
-
-
-
-
-
-      $data[$i]['bonus'] = 'NO FINISH';
-		if($data[$i]['finished'] == 'true') {
-			$data[$i]['bonus'] = 0.51;
-
-			if($data[$i]['email_sent'] == 'true') {
-				$data[$i]['bonus'] = 0.01;
-			}
-		}
-
+		//does the email from the checkout page match the email from the survey?
       $data[$i]['email_matches_pre_post'] = 'undef';
 
 		if($data[$i]['post_email'] != 'undef' && $data[$i]['post_email'] != '') {
@@ -82,12 +78,26 @@ function get_entry_data($db) {
 			}
 		}
 
+		//just the 'true' or 'false' part
+		$data[$i]['email_sent'] = $data[$i]['email_sent'][0];  
 
+		//Calculate their bonus (need to change if payment amount changes)
+      $data[$i]['bonus'] = 'NO FINISH';
+		if($data[$i]['finished'] == 'true') {
+			$data[$i]['bonus'] = 0.51;
+
+			if($data[$i]['email_sent'] == 'true') {
+				$data[$i]['bonus'] = 0.01;
+			}
+		}
+
+
+
+		//figure out the timing of a participant's actions (never quiet figured this out)
 		$data[$i]['purchase_page_mins'] = 'NEVER REACHED';
 		$data[$i]['total_time_mins'] = 'NEVER REACHED';
 
-		$last_page='undef';
-
+		$last_page = 'undef';
 
 		$load_purchase_page = 'ERROR';
 		$close_purchase_page = 'ERROR';
@@ -147,6 +157,9 @@ function get_entry_data($db) {
 
 		////////////
 
+		//last_page is the last page that a participant saw in the experiment
+		//the $last_page var comes from the timing loop above, which works the right way
+		//(even if timing doesn't work right)
       $data[$i]['last_page'] = 'undef';
 
 		if($data[$i]['finished'] == 'true') {
@@ -159,13 +172,13 @@ function get_entry_data($db) {
 				$data[$i]['last_page'] = 'secondStage';
 			}
 
-
 			if($last_page['subject_name'] == 'secondStage') {
 				$data[$i]['last_page'] = 'secondStage';
 			}                                  
 		}
 
 
+		//expand the pre_info and post_info JSON arrays into new columns
 		foreach($data[$i] as $k=>$v) {
 			if($k == 'pre_info' || $k == 'post_info') {
          	$info = json_decode($v, true);
@@ -183,6 +196,7 @@ function get_entry_data($db) {
 	}
 
 	
+	//find the row that has the most column fields, and use that for the column
 	$headers = array_keys($data[0]);
 	for($i=1;$i<count($data);$i++) {
 		$headers2 = array_keys($data[$i]);
@@ -193,6 +207,7 @@ function get_entry_data($db) {
 
 	$newdata = array();
 
+	//fill in column data for rows that are missing some columns
 	for($i=0;$i<count($data);$i++) {
 		$newdata[$i] = array();
 		foreach($headers as $h) {
@@ -206,6 +221,7 @@ function get_entry_data($db) {
 
 	$data = $newdata;
 
+	//write it out!
 	$stdout = fopen('php://output','w');
 	fputcsv($stdout,$headers);
 	foreach($data as $row) {

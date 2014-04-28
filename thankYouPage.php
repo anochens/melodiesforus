@@ -1,4 +1,7 @@
 <?php
+
+//this is the last page that people see
+
 include_once('redirector.php');
 ?>
 

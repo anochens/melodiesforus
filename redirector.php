@@ -1,5 +1,7 @@
 <?php
 
+//This file ensures that participants view the right pages at the right times
+
 $override = false;
 if(array_key_exists('override', $_COOKIE)) {
 	$override = true;
@@ -11,7 +13,9 @@ if(array_key_exists('override', $_REQUEST)) {
 }
 
 
-if(!$override) {
+include('config.php');
+
+if(!EXPERIMENT_OPEN && !$override) {
 	die('This experiment is now closed. Thank you for your participation.');
 }
 
@@ -23,12 +27,10 @@ if(has_finished(-1)) {
 	redir("thankYouPage.php");
 }
 else {
-
 	if(!array_key_exists('sid', $_COOKIE)) {
 		redir("consent.php", true);
 	}
 	else {
-
 		$sid = intval($_COOKIE['sid']);
 
 		if(!has_consented($sid)) {
@@ -41,8 +43,6 @@ else {
          	redir("shopping.php");
 			}
 			else {
-
-
 				if(!has_seen_negative_option($sid)) { //pre survey done
 					redir('purchase.php', true);
 					//go to negative options page

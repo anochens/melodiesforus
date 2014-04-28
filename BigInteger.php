@@ -1,3 +1,10 @@
+<!--
+   Required for addition/subtraction of timestamps (since they are large integers).
+
+-->
+
+
+
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 

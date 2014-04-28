@@ -1,4 +1,7 @@
 <?php
+
+//This page delegates to pages that show survey, process survey, send mail
+
 include_once('functions.php');
 
 if(array_key_exists('prevPage', $_REQUEST) && $_REQUEST['prevPage'] == 'survey') {
@@ -8,38 +11,48 @@ if(array_key_exists('prevPage', $_REQUEST) && $_REQUEST['prevPage'] == 'survey')
 }
 
 
-$sid = intval($_COOKIE['sid']);
-
+$sid = intval($_COOKIE['sid']); //for security
 
 $email_sent = false;
 
 if(array_key_exists('sendEmail', $_GET)) {
-	if($_REQUEST['sendEmail'] != 'false') {
-		$to = getEmailForCurrentSession();
-		
-		if($to == 'undef') {
-			$to = str_replace("'",'',$_GET['post_email']);
-		}
-
-		$email_sent = true;
-		$songId = get_from_session($sid, 'songId', true);
-
-		//tis avoid duplicates being sent when someone reloads the page
-		if(!has_seen_negative_option($sid)) { 
-			include('mailer.php');
-		}
+	$wantsEmail = ($_REQUEST['sendEmail'] != 'false');
+	if($wantsEmail) { 
+		sendEmail();
 	}
 }
 if(array_key_exists('post_email', $_REQUEST)) {
 	$email = htmlentities($_REQUEST['post_email'], ENT_QUOTES);
 
    if(!has_seen_negative_option($sid)) { //first time submitting
-		edit_session(array('post_email'=>$email, 'sid'=>$sid, 'email_sent'=>var_export($email_sent, true)), true, 'post');
+
+      $newData = array('post_email'=>$email, 
+		                 'sid'=>$sid,
+							  'email_sent'=>var_export($email_sent, true));
+
+		edit_session($newData, true, 'post');
 	}
 	else {  //record attempt to change 
 		recordCheater($sid, $email_sent ? "true":"false");
 	}
 }          
+
+function sendEmail() {
+	$to = getEmailForCurrentSession(); //from functions.php
+
+	if($to == 'undef') {
+		$to = str_replace("'",'',$_GET['post_email']);
+	}
+
+	$email_sent = true;
+	$songId = get_from_session($sid, 'songId', true);
+
+	//tis avoid duplicates being sent when someone reloads the page
+	if(!has_seen_negative_option($sid)) { 
+		include('mailer.php');
+	} 
+}
+
 
 include_once('redirector.php');
 
@@ -94,8 +107,4 @@ include('survey/survey.php');
 legend {
 	border:0px;
 }
-.span8 {
-/*	border:3px solid black; */
-}
-
 </style> 
