@@ -191,13 +191,20 @@ function get_entry_data($db) {
 		}
 	}
 
+	$newdata = array();
+
 	for($i=0;$i<count($data);$i++) {
+		$newdata[$i] = array();
 		foreach($headers as $h) {
       	if(!array_key_exists($h, $data[$i])) {
 				$data[$i][$h] = 'undef';
 			}
+
+			$newdata[$i][$h] = $data[$i][$h];
 		}
 	}
+
+	$data = $newdata;
 
 	$stdout = fopen('php://output','w');
 	fputcsv($stdout,$headers);
